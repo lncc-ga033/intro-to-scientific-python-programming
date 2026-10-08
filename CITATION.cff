@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: "Ao utilizar ou adaptar este material, cite o autor e indique a licença CC BY 4.0."
+type: software
+title: "Introdução à programação científica com Python: módulo da disciplina GA033"
+authors:
+  - family-names: "Volpatto"
+    given-names: "Diego Tavares"
+    affiliation: "Laboratório Nacional de Computação Científica (LNCC)"
+repository-code: "https://github.com/lncc-ga033/intro-to-scientific-python-programming"
+url: "https://lncc-ga033.github.io/"
+license: CC-BY-4.0
+keywords:
+  - "Python"
+  - "Computação científica"
+  - "Ensino"
+  - "Elementos finitos"

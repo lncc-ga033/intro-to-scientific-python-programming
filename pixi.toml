@@ -1,0 +1,32 @@
+[workspace]
+name = "intro-to-scientific-python-programming"
+version = "0.1.0"
+description = "Introdução à programação científica com Python -- módulo da GA033/LNCC"
+authors = ["Diego Tavares Volpatto"]
+channels = ["conda-forge"]
+platforms = ["osx-arm64", "osx-64", "linux-64", "win-64"]
+license = "CC-BY-4.0"
+
+[dependencies]
+python = "3.13.*"
+numpy = ">=2.2,<3"
+scipy = ">=1.15,<2"
+matplotlib = ">=3.10,<4"
+jupyterlab = ">=4.4,<5"
+notebook = ">=7.4,<8"
+ipykernel = ">=6.29,<8"
+nbclient = ">=0.10,<1"
+nbformat = ">=5.10,<6"
+nbconvert = ">=7.16,<8"
+pytest = ">=8,<10"
+ruff = ">=0.11,<1"
+
+[tasks]
+lab = "jupyter lab"
+notebook = "jupyter notebook"
+testar = "python -m pytest"
+qualidade = "ruff check exemplos testes scripts"
+executar = "python scripts/verificar_notebooks.py"
+atualizar-saidas = "python scripts/verificar_notebooks.py --gravar"
+html = "python scripts/exportar_html.py"
+verificar = { depends-on = ["qualidade", "testar", "executar"] }
