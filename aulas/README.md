@@ -17,10 +17,31 @@ pixi install --locked
 pixi run aulas-preview
 ```
 
-Abra `http://127.0.0.1:8766/`. Escolha uma aula no índice e use as setas.
+Abra o endereço informado no terminal. O comando tenta a porta `8766` e
+escolhe outra livre se ela estiver ocupada. Escolha uma aula no índice e use as setas.
 Clique no código para editar e em **Executar** para avaliar. **Restaurar
 código** recupera o exemplo original. O botão restaura o texto da célula;
 para reiniciar todo o ambiente Python do navegador, recarregue a página.
+
+Cada projeto mantém uma única prévia. Uma nova execução encerra
+automaticamente as prévias anteriores deste projeto, preservando os outros
+serviços. A opção `--porta` indica a porta de preferência; se ela estiver
+ocupada por outro programa, outra será escolhida.
+
+```sh
+pixi run aulas-preview --porta 9000
+```
+
+Mantenha o terminal aberto durante a apresentação. **Ctrl+C** encerra a
+prévia, seus processos de apoio e libera a porta.
+
+Para encerrar a prévia a partir de outro terminal, abra-o na pasta do projeto e use:
+
+```sh
+pixi run aulas-encerrar
+```
+
+O comando encerra somente as prévias das aulas deste projeto, preservando os outros programas.
 
 A primeira abertura carrega o Python e as bibliotecas pela internet.
 Os exemplos usam o ambiente do navegador; os comandos de terminal são

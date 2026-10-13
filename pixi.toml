@@ -21,6 +21,7 @@ nbconvert = ">=7.16,<8"
 pytest = ">=8,<10"
 ruff = ">=0.11,<1"
 quarto = ">=1.6,<2"
+psutil = ">=7,<8"
 
 [pypi-dependencies]
 malhalib = { path = ".", editable = true }
@@ -34,7 +35,8 @@ executar = "python scripts/verificar_notebooks.py"
 atualizar-saidas = "python scripts/verificar_notebooks.py --gravar"
 html = "python scripts/exportar_html.py"
 aulas = "quarto render aulas"
-aulas-preview = "quarto preview aulas --host 127.0.0.1 --port 8766 --no-browser"
+aulas-preview = "python scripts/preview_aulas.py"
+aulas-encerrar = "python scripts/preview_aulas.py --encerrar"
 aulas-servir = "python -m http.server 8766 --bind 127.0.0.1 --directory aulas/_site"
 aulas-verificar = "python scripts/verificar_aulas.py"
 figuras = "python scripts/gerar_figuras.py"

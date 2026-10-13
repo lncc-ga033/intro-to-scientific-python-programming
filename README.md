@@ -30,6 +30,15 @@ Abra o endereço informado no terminal. O índice reúne as nove apresentações
 as setas navegam pelos slides. **Executar** avalia o código do editor e
 **Restaurar código** recupera o exemplo original.
 
+O projeto mantém uma única prévia. Ao iniciar uma nova, o comando encerra
+a anterior automaticamente, preservando os outros serviços. Ele tenta a
+porta `8766` e escolhe outra livre quando necessário. Para indicar outra porta
+de preferência, use `pixi run aulas-preview --porta 9000`.
+**Ctrl+C** encerra a prévia e libera a porta.
+
+Em outro terminal aberto na pasta do projeto, `pixi run aulas-encerrar`
+encerra somente as prévias das aulas deste projeto, preservando os outros programas.
+
 As apresentações foram construídas com [Quarto](https://quarto.org/) e
 [Quarto Live](https://r-wasm.github.io/quarto-live/), usando Reveal.js e Pyodide.
 O Pixi fornece as ferramentas de edição e geração; o código interativo das
