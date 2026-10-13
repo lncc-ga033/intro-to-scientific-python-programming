@@ -3,8 +3,8 @@
 import numpy as np
 import pytest
 
-from exemplos.calculos import calcular_comprimentos
-from exemplos.malha import Malha1D, criar_malha_uniforme
+from malhalib.calculos import calcular_comprimentos
+from malhalib.malha import Malha1D, criar_malha_uniforme
 
 
 def test_funcao_calcula_comprimentos_nao_uniformes():

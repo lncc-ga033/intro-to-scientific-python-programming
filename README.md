@@ -2,11 +2,50 @@
 
 **Um crash course que integra a disciplina GA033 -- Método de Elementos Finitos: Implementação Computacional, do LNCC.**
 
-**Autor:** Diego Tavares Volpatto · **Idioma:** Português brasileiro (PT-BR) · **Licença:** CC BY 4.0
+**Prof. Diego Volpatto**
+
+Programa de Pós-Graduação em Modelagem Computacional · LNCC
+
+**Idioma:** Português brasileiro (PT-BR) · **Licença:** CC BY 4.0
 
 Este módulo prepara os participantes da [GA033](https://lncc-ga033.github.io/) para escrever, executar, compreender e organizar programas científicos em Python. O material parte dos fundamentos da linguagem e acompanha a construção gradual das habilidades necessárias às atividades computacionais da disciplina.
 
 Não é necessário conhecer Python. Utilizamos aritmética e noções de funções; os cadernos sobre sistemas lineares pressupõem conhecimentos básicos de vetores e matrizes. A prática é parte da aula: executar, prever resultados, modificar exemplos e explicar o que mudou.
+
+## Aulas interativas e material suplementar
+
+As apresentações em [`aulas/`](aulas/) introduzem os assuntos de forma direta,
+com explicações, código editável e resultados calculados durante a aula. Os
+[notebooks](notebooks/) são o material suplementar para experimentar, resolver
+exercícios e estudar com mais detalhes.
+
+Para gerar e abrir as aulas no ambiente Pixi:
+
+```sh
+pixi install --locked
+pixi run aulas-preview
+```
+
+Abra o endereço informado no terminal. O índice reúne as nove apresentações;
+as setas navegam pelos slides. **Executar** avalia o código do editor e
+**Restaurar código** recupera o exemplo original.
+
+As apresentações foram construídas com [Quarto](https://quarto.org/) e
+[Quarto Live](https://r-wasm.github.io/quarto-live/), usando Reveal.js e Pyodide.
+O Pixi fornece as ferramentas de edição e geração; o código interativo das
+apresentações roda em um Python separado, dentro do navegador. A preparação
+inicial desse Python e das bibliotecas requer internet. As versões desse
+ambiente são próprias do Pyodide, e não as do ambiente local do Pixi.
+
+`pixi run aulas` gera o material em `aulas/_site/`. Essa pasta completa pode ser
+servida com `pixi run aulas-servir`; abrir um HTML diretamente por `file://`
+não oferece o servidor necessário aos arquivos usados pelos exemplos.
+Veja [como editar e apresentar](aulas/README.md).
+
+A extensão Quarto Live está incluída em `aulas/_extensions/r-wasm/live`,
+fixada na tag `v0.2.0` (commit `d1459f7968efca5ccdb3cb8a993a399ec6d3e102`).
+Sua licença MIT está preservada junto à extensão. O material autoral deste
+curso usa CC BY 4.0.
 
 ## Comece por aqui
 
@@ -51,8 +90,23 @@ O próprio repositório é o exemplo de projeto com Pixi:
 - `pixi.toml` declara as dependências e os comandos do projeto.
 - `pixi.lock` registra as dependências resolvidas para cada plataforma configurada.
 - `.pixi/` contém o ambiente instalado localmente e fica fora do controle de versão.
+- `src/malhalib/` contém o pequeno pacote Python com funções e uma classe de malha 1D.
+- `pyproject.toml` descreve esse pacote. O Pixi instala `malhalib` em modo editável:
+  mudanças no código de `src/` são utilizadas sem reinstalar o pacote.
 
 Os primeiros passos usam o ambiente pronto. Mais adiante, o [guia de Pixi](docs/ambiente-pixi.md) explica como criar um pequeno projeto e reconhecer esses arquivos.
+
+Para usar o pacote em código Python, importe seus módulos normalmente:
+
+```python
+from malhalib.malha import criar_malha_uniforme
+
+malha = criar_malha_uniforme(4)
+print(malha.comprimentos())
+```
+
+O pacote funciona a partir de outras pastas quando se usa o Python deste ambiente.
+Em uma sessão que já importou o módulo, reinicie o kernel depois de editar sua fonte.
 
 ## Verificar e manter o material
 
@@ -60,9 +114,16 @@ Estes comandos destinam-se à manutenção do curso; os alunos podem começar di
 
 ```sh
 pixi run verificar
+pixi run aulas-verificar
 ```
 
-Essa tarefa verifica o código de apoio, testa a representação de malha e executa todos os notebooks em kernels novos, usando uma cópia temporária para preservar os arquivos de trabalho. Erros demonstrados durante as aulas são capturados e explicados; a execução completa deve terminar sem erros não tratados.
+`verificar` confere o código de apoio, testa a representação de malha e executa
+todos os notebooks em kernels novos, usando uma cópia temporária para preservar
+os arquivos de trabalho. `aulas-verificar` executa os exemplos das apresentações
+em namespaces independentes no Python local. Complete essa verificação com a
+execução dos slides no navegador e com a revisão visual. Erros demonstrados
+durante as aulas são capturados e explicados; a execução completa deve terminar
+sem erros não tratados.
 
 Para atualizar as saídas dos cadernos e exportá-los para leitura no navegador:
 

@@ -1,6 +1,22 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "malhalib"
+version = "0.1.0"
+description = "Exemplos pequenos de malha 1D para o módulo introdutório da GA033/LNCC"
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [{ name = "Diego Tavares Volpatto" }]
+license = "CC-BY-4.0"
+dependencies = ["numpy>=2.2,<3"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
 [tool.pytest.ini_options]
 testpaths = ["testes"]
-pythonpath = ["."]
 addopts = "-q"
 
 [tool.ruff]

@@ -1,0 +1,34 @@
+---
+title: "GA033 -- Introdução à programação científica com Python"
+format:
+  html:
+    theme: cosmo
+    toc: false
+    css: assets/indice.css
+---
+
+![Laboratório Nacional de Computação Científica](assets/lncc.png){width=260}
+
+Este módulo da **GA033 -- Método de Elementos Finitos: Implementação Computacional** reúne aulas para quem está começando a usar Python. As apresentações introduzem cada conceito e permitem editar e executar os exemplos. Os notebooks oferecem explicações adicionais e exercícios de estudo.
+
+## Aulas
+
+| Aula | Conteúdo |
+| --- | --- |
+| [00 -- Ambiente e primeiro notebook](00-ambiente-e-primeiro-notebook.html) | Pixi, Jupyter e execução |
+| [01 -- Primeiros passos](01-primeiros-passos.html) | Valores, operações e estruturas de dados |
+| [02 -- Controle de fluxo](02-controle-de-fluxo.html) | Condicionais, laços e comprehensions |
+| [03 -- Funções](03-funcoes.html) | Entradas, retorno e responsabilidades |
+| [04 -- Arrays com NumPy](04-arrays-com-numpy.html) | Arrays, operações e sistemas lineares |
+| [05 -- Gráficos e resultados](05-graficos-e-resultados.html) | Figuras, interpolação e erro |
+| [06 -- Cálculo científico com SciPy](06-calculo-cientifico-com-scipy.html) | Sistemas esparsos e quadratura |
+| [07 -- Organização e dataclasses](07-organizacao-e-dataclasses.html) | Módulos, classes e malhalib |
+| [08 -- Tópicos complementares](08-topicos-complementares.html) | Raízes, ajuste, interpolação e EDOs |
+
+## Como usar
+
+Abra uma aula e use as setas da apresentação. Edite um exemplo e clique em **Executar**. O Python e as bibliotecas são carregados no navegador; aguarde a preparação inicial, que requer acesso à internet. Alterações feitas nos slides não são salvas no notebook suplementar. Para guardar seu trabalho, abra os notebooks no JupyterLab pelo ambiente Pixi.
+
+As aulas seguem o percurso dos cadernos; a divisão não determina o número de encontros. O professor pode distribuir os assuntos conforme as atividades da disciplina.
+
+**Professor:** Prof. Diego Volpatto · [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.pt-br)

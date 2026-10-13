@@ -1,0 +1,240 @@
+---
+title: "07 -- Organização e dataclasses"
+subtitle: "Funções, módulos e objetos em uma malha 1D"
+resources: [malhalib]
+format:
+  live-revealjs:
+    pyodide:
+      resources: [malhalib]
+      packages: [numpy]
+---
+
+## Coordenadas e conectividade
+
+As coordenadas localizam os nós. Cada linha da conectividade contém os índices dos dois nós que formam um elemento.
+
+```{pyodide}
+import numpy as np
+
+coordenadas = np.array([0.0, 0.25, 0.5, 0.75, 1.0])
+conectividade = np.array([[0, 1], [1, 2], [2, 3], [3, 4]])
+print("Coordenadas:", coordenadas)
+print("Primeiro elemento:", conectividade[0])
+```
+
+## Uma função representa uma operação {.output-columns}
+
+Uma função recebe os dados necessários e devolve um resultado. Calcular comprimentos é uma responsabilidade pequena e bem definida.
+
+```{pyodide}
+import numpy as np
+
+
+def comprimentos(coordenadas, conectividade):
+    return coordenadas[conectividade[:, 1]] - coordenadas[conectividade[:, 0]]
+
+x = np.array([0.0, 0.3, 1.0])
+elementos = np.array([[0, 1], [1, 2]])
+print(comprimentos(x, elementos))
+```
+
+## Um módulo permite reutilizar código
+
+Um módulo é um arquivo Python que podemos importar. O pacote `malhalib` reúne os módulos `calculos` e `malha` usados nos notebooks e nas aulas.
+
+```{pyodide}
+import numpy as np
+from malhalib.calculos import calcular_comprimentos
+
+x = np.array([0.0, 0.3, 1.0])
+elementos = np.array([[0, 1], [1, 2]])
+print(calcular_comprimentos(x, elementos))
+```
+
+## Uma classe reúne dados e operações {.output-columns}
+
+Uma classe define como construir um tipo de objeto. Uma instância guarda seus próprios atributos; um método é uma função associada à instância.
+
+```{pyodide}
+class Intervalo:
+    def __init__(self, inicio, fim):
+        self.inicio = inicio
+        self.fim = fim
+
+    def comprimento(self):
+        return self.fim - self.inicio
+
+intervalo = Intervalo(0.0, 2.0)
+print(intervalo.comprimento())
+```
+
+## `self` representa a instância {.output-columns}
+
+`self.inicio` consulta um atributo daquele objeto. Duas instâncias da mesma classe podem ter dados e resultados diferentes.
+
+```{pyodide}
+class Intervalo:
+    def __init__(self, inicio, fim):
+        self.inicio, self.fim = inicio, fim
+
+    def comprimento(self):
+        return self.fim - self.inicio
+
+curto, longo = Intervalo(0.0, 1.0), Intervalo(0.0, 3.0)
+print("Comprimentos:", curto.comprimento(), longo.comprimento())
+```
+
+## `dataclass`: declarar os campos {.output-columns}
+
+`@dataclass` gera um construtor e uma representação textual a partir dos campos declarados. Métodos específicos continuam sendo escritos por nós.
+
+```{pyodide}
+from dataclasses import dataclass
+
+
+@dataclass
+class Intervalo:
+    inicio: float
+    fim: float
+
+intervalo = Intervalo(0.0, 2.0)
+print(intervalo)
+```
+
+## Anotar tipos comunica a intenção {.output-columns}
+
+A anotação `inicio: float` documenta o tipo esperado. O Python não verifica automaticamente essa anotação ao construir a dataclass.
+
+```{pyodide}
+from dataclasses import dataclass
+
+
+@dataclass
+class Medida:
+    valor: float
+
+medida = Medida("texto")
+print("Tipo recebido:", type(medida.valor).__name__)
+```
+
+## Validar exige uma ação explícita {.output-columns}
+
+`__post_init__` é chamado depois do construtor gerado pela dataclass. Ele pode verificar condições necessárias para que o objeto tenha significado.
+
+```{pyodide}
+from dataclasses import dataclass
+
+
+@dataclass
+class Intervalo:
+    inicio: float
+    fim: float
+
+    def __post_init__(self):
+        if self.fim <= self.inicio:
+            raise ValueError("O fim deve ser maior que o início.")
+
+print(Intervalo(0.0, 2.0))
+```
+
+## Arrays pedem cuidados com igualdade
+
+Para arrays, `==` produz uma comparação por entrada. Em `Malha1D`, `eq=False` desativa a igualdade automática da dataclass; comparamos os dados explicitamente.
+
+```{pyodide}
+import numpy as np
+
+x = np.array([0.0, 0.5, 1.0])
+y = np.array([0.0, 0.5, 1.0])
+print("Comparação por entrada:", x == y)
+print("Mesmos valores?", np.array_equal(x, y))
+```
+
+## `Malha1D`: dados e cálculo juntos
+
+`Malha1D` guarda coordenadas e conectividade; seu método `comprimentos()` reutiliza a função do módulo `calculos`. A construção verifica os formatos e copia as entradas.
+
+```{pyodide}
+import numpy as np
+from malhalib.malha import Malha1D
+
+x = np.array([0.0, 0.2, 0.7, 1.0])
+elementos = np.array([[0, 1], [1, 2], [2, 3]])
+malha = Malha1D(x, elementos)
+print("Nós:", malha.coordenadas)
+print("Comprimentos:", malha.comprimentos())
+```
+
+## Uma função constrói a malha uniforme {.output-columns}
+
+`criar_malha_uniforme` organiza a criação das coordenadas e dos elementos. Para $n$ elementos em $[0,L]$, temos $n+1$ nós e comprimento $L/n$ por elemento.
+
+```{pyodide}
+from malhalib.malha import criar_malha_uniforme
+
+malha = criar_malha_uniforme(numero_elementos=4, comprimento=2.0)
+print("Nós:", malha.coordenadas)
+print("Elementos:\n", malha.conectividade)
+print("Comprimentos:", malha.comprimentos())
+```
+
+## Copiar entradas protege o objeto
+
+Alterar um array externo não deve mudar silenciosamente a malha criada. A cópia feita no construtor separa esses dados.
+
+```{pyodide}
+import numpy as np
+from malhalib.malha import Malha1D
+
+x = np.array([0.0, 0.4, 1.0])
+malha = Malha1D(x, np.array([[0, 1], [1, 2]]))
+x[1] = 0.9
+print("Array externo:", x)
+print("Coordenadas guardadas:", malha.coordenadas)
+```
+
+## Reconhecer uma entrada inválida
+
+A validação recusa índices fora do vetor e elementos com comprimento não positivo. `try/except` permite tratar uma falha esperada sem interromper o restante do exemplo.
+
+```{pyodide}
+import numpy as np
+from malhalib.malha import Malha1D
+
+try:
+    Malha1D(np.array([0.0, 1.0]), np.array([[0, 2]]))
+except ValueError as erro:
+    print("Entrada recusada:", erro)
+```
+
+## Verificações com uma resposta conhecida
+
+Uma verificação útil compara o resultado com uma propriedade esperada. Na malha uniforme, os comprimentos são iguais e sua soma vale $L$.
+
+```{pyodide}
+import numpy as np
+from malhalib.malha import criar_malha_uniforme
+
+malha = criar_malha_uniforme(3, comprimento=2.0)
+tamanhos = malha.comprimentos()
+assert np.allclose(tamanhos, 2.0 / 3.0)
+assert np.isclose(tamanhos.sum(), 2.0)
+print("Verificações passaram:", tamanhos)
+```
+
+## Escolher a organização conforme o problema
+
+Uma função basta para uma operação independente. A classe ajuda quando dados relacionados e operações pertencem ao mesmo objeto.
+
+- A validação da malha ocorre na construção.
+- Os atributos continuam mutáveis; mudanças posteriores exigem cuidado.
+- As verificações locais não demonstram cobertura global sem lacunas ou sobreposições.
+
+## Para experimentar e estudar
+
+Altere o número de elementos, construa uma malha não uniforme e confira seus comprimentos. O pacote local é instalado em modo editável no ambiente Pixi.
+
+- [Notebook suplementar 07](suplementos/notebooks/07-organizacao-e-dataclasses.ipynb)
+- [Módulos no Python](https://docs.python.org/3/tutorial/modules.html)
+- [`dataclasses`](https://docs.python.org/3/library/dataclasses.html)
+- [Código de `malhalib`](malhalib/malha.py)

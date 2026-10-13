@@ -1,0 +1,4 @@
+body { border-top: 5px solid #075ac0; }
+h1, h2, a { color: #075ac0; }
+main { max-width: 1050px; }
+td { padding-top: 0.65rem !important; padding-bottom: 0.65rem !important; }

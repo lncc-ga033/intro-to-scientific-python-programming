@@ -1,0 +1,369 @@
+---
+title: "03 -- Funções"
+subtitle: "Entradas, resultados e verificações"
+format:
+  live-revealjs:
+    pyodide:
+      packages: []
+---
+
+## Uma função dá nome a uma operação
+
+Uma função reúne instruções que podemos reutilizar. `def` define a função, os parâmetros dão nome às entradas e `return` devolve o resultado.
+
+```{pyodide}
+#| autorun: true
+#| min-lines: 4
+#| max-lines: 10
+def area_retangulo(largura, altura):
+    return largura * altura
+
+area = area_retangulo(2.0, 3.0)
+print(f"Área: {area}")
+```
+
+**Experimente:** calcule outra área sem copiar a multiplicação.
+
+## Definir e chamar são etapas diferentes {.output-columns}
+
+A definição registra o que a função fará; a chamada executa suas instruções. Parênteses após o nome indicam a chamada e contêm os argumentos.
+
+```{pyodide}
+#| autorun: true
+#| min-lines: 4
+#| max-lines: 10
+def calcular_dobro(valor):
+    print("A função foi chamada.")
+    return 2.0 * valor
+
+print("A definição terminou.")
+print(calcular_dobro(3.0))
+```
+
+**Preveja:** em que ordem as mensagens aparecem?
+
+## Argumentos por posição ou por nome
+
+Os argumentos são os valores fornecidos na chamada. Eles podem seguir a ordem dos parâmetros ou indicar seus nomes explicitamente.
+
+```{pyodide}
+#| autorun: true
+#| min-lines: 4
+#| max-lines: 10
+def area_retangulo(largura, altura):
+    return largura * altura
+
+print(area_retangulo(2.0, 3.0))
+print(area_retangulo(altura=3.0, largura=2.0))
+```
+
+**Experimente:** altere as medidas nas duas chamadas e confira os resultados.
+
+## `return`: devolver para reutilizar
+
+`return` entrega um resultado a quem chamou a função. Esse valor pode ser guardado, apresentado ou usado como entrada de outro cálculo.
+
+```{pyodide}
+#| autorun: true
+#| min-lines: 4
+#| max-lines: 10
+def calcular_dobro(valor):
+    return 2.0 * valor
+
+dobro = calcular_dobro(3.0)
+print(dobro)
+print(dobro + 1.0)
+```
+
+**Experimente:** use o retorno para calcular o quadrado do dobro.
+
+## `print`: apresentar uma mensagem
+
+`print` mostra uma informação. Uma função sem `return` explícito devolve `None`, mesmo quando exibe um resultado na tela.
+
+```{pyodide}
+#| autorun: true
+#| min-lines: 4
+#| max-lines: 10
+def imprimir_dobro(valor):
+    print(f"Dobro: {2.0 * valor}")
+
+retorno = imprimir_dobro(3.0)
+print(f"Retorno guardado: {retorno}")
+```
+
+**Observe:** o número apareceu, mas o retorno guardado foi `None`.
+
+## Parâmetros com valores padrão
+
+Um valor padrão é usado quando o argumento é omitido. Parâmetros obrigatórios vêm antes dos parâmetros com padrão, e o padrão deve ter um significado claro.
+
+```{pyodide}
+#| autorun: true
+#| min-lines: 4
+#| max-lines: 10
+def multiplicar_por_fator(valor, fator=1.0):
+    return fator * valor
+
+print(multiplicar_por_fator(8.0))
+print(multiplicar_por_fator(8.0, fator=0.5))
+```
+
+**Experimente:** escolha outro fator. O que acontece quando ele é omitido?
+
+## Devolver dois resultados
+
+Uma função pode devolver uma tupla. O desempacotamento associa cada resultado a um nome; mantenha uma ordem que seja fácil de explicar.
+
+```{pyodide}
+#| autorun: true
+#| min-lines: 4
+#| max-lines: 10
+def descrever_intervalo(inicio, fim):
+    ponto_medio = (inicio + fim) / 2.0
+    comprimento = fim - inicio
+    return ponto_medio, comprimento
+
+ponto_medio, comprimento = descrever_intervalo(1.0, 3.0)
+print(ponto_medio, comprimento)
+```
+
+**Experimente:** use outro intervalo e confira cada resultado.
+
+## Escopo: nomes locais à função {.output-columns}
+
+Parâmetros e nomes atribuídos no corpo são locais à função. Prefira receber os dados necessários como argumentos, deixando claras as dependências do cálculo.
+
+```{pyodide}
+#| autorun: true
+#| min-lines: 4
+#| max-lines: 10
+fator = 10.0
+def aplicar_fator_local(valor):
+    fator = 2.0
+    return fator * valor
+
+print(aplicar_fator_local(3.0))
+print(fator)
+```
+
+**Observe:** a atribuição local não alterou o nome `fator` definido fora.
+
+::: {.notes}
+Escopo de nomes não implica copiar os objetos recebidos. Uma função pode modificar uma lista que recebeu como argumento; os próximos exemplos preservam a entrada deliberadamente.
+:::
+
+## Docstring: explicar o contrato
+
+Uma *docstring* é o texto entre aspas triplas no início do corpo. Ela explica o significado das entradas e do resultado, incluindo hipóteses e unidades quando necessário.
+
+```{pyodide}
+#| autorun: true
+#| min-lines: 4
+#| max-lines: 10
+def calcular_comprimento(inicio, fim):
+    """Retorna fim - inicio, com extremos na mesma unidade."""
+    return fim - inicio
+
+print(calcular_comprimento(0.0, 1.0))
+print(calcular_comprimento.__doc__)
+```
+
+**Experimente:** explique uma hipótese que o texto ainda não menciona.
+
+## Anotações de tipo ajudam a leitura
+
+`inicio: float` indica um tipo esperado e `-> float`, o tipo do retorno. Essas anotações documentam a intenção; elas não convertem nem validam os dados automaticamente.
+
+```{pyodide}
+#| autorun: true
+#| min-lines: 4
+#| max-lines: 10
+def calcular_comprimento(inicio: float, fim: float) -> float:
+    """Retorna fim - inicio."""
+    return fim - inicio
+
+print(calcular_comprimento(0.0, 1.0))
+```
+
+**Observe:** o cálculo é o mesmo da versão anterior; a intenção está mais explícita.
+
+## Validar os dados recebidos
+
+`raise ValueError` rejeita uma entrada incompatível com o cálculo. Aqui adotamos a convenção de que um intervalo válido deve ter `fim > inicio`.
+
+```{pyodide}
+#| autorun: true
+#| min-lines: 4
+#| max-lines: 10
+def comprimento_positivo(inicio, fim):
+    if fim <= inicio:
+        raise ValueError("O fim deve ser maior que o início.")
+    return fim - inicio
+
+print(comprimento_positivo(0.0, 1.0))
+```
+
+**Experimente:** use outro intervalo válido.
+
+## Estudar uma exceção esperada {.output-columns}
+
+`try` executa um bloco e `except ValueError` trata esse tipo de erro. Leia a mensagem e identifique a regra violada antes de decidir como corrigir os dados.
+
+```{pyodide}
+#| autorun: true
+#| min-lines: 4
+#| max-lines: 10
+def comprimento_positivo(inicio, fim):
+    if fim <= inicio:
+        raise ValueError("O fim deve ser maior que o início.")
+    return fim - inicio
+try:
+    print(comprimento_positivo(1.0, 0.0))
+except ValueError as erro:
+    print(f"ValueError: {erro}")
+```
+
+**Experimente:** use extremos válidos. O bloco `except` ainda será executado?
+
+## `None` como argumento opcional {.output-columns}
+
+Um padrão `None` pode indicar uma opção ausente. Neste exemplo, devolvemos outra lista; evitamos usar uma lista mutável como padrão compartilhado entre chamadas.
+
+```{pyodide}
+#| autorun: true
+#| min-lines: 4
+#| max-lines: 10
+def selecionar_primeiros(valores, quantidade=None):
+    if quantidade is None:
+        return valores.copy()
+    return valores[:quantidade]
+
+medicoes = [20.0, 21.0, 22.0]
+print(selecionar_primeiros(medicoes))
+print(selecionar_primeiros(medicoes, quantidade=2))
+```
+
+**Experimente:** selecione somente o primeiro item.
+
+## Verificar números com tolerância
+
+`math.isclose` compara dois escalares com tolerâncias relativa e absoluta. A absoluta ajuda perto de zero; a escolha deve considerar a escala e a precisão esperada do cálculo.
+
+```{pyodide}
+#| autorun: true
+#| min-lines: 4
+#| max-lines: 10
+import math
+soma = 0.1 + 0.2
+print(soma == 0.3)
+print(math.isclose(soma, 0.3, rel_tol=1e-12, abs_tol=1e-12))
+print(math.isclose(1e-14, 0.0, abs_tol=1e-12))
+```
+
+**Experimente:** compare `1e-6` com zero usando a mesma tolerância absoluta.
+
+::: {.notes}
+Para valores finitos, a condição é abs(a-b) <= max(rel_tol * max(abs(a), abs(b)), abs_tol). As tolerâncias escolhidas aqui não são uma recomendação universal para simulações.
+:::
+
+## Verificações com resultados conhecidos
+
+`assert` verifica uma condição no desenvolvimento. Confira resultados que possam ser justificados independentemente da implementação, como a área de um retângulo conhecido.
+
+```{pyodide}
+#| autorun: true
+#| min-lines: 4
+#| max-lines: 10
+import math
+def area_retangulo(largura, altura):
+    return largura * altura
+
+area = area_retangulo(2.0, 3.0)
+assert math.isclose(area, 6.0, rel_tol=1e-12, abs_tol=1e-12)
+print("A verificação passou.")
+```
+
+**Observe:** executar sem erro só prova o caso que foi verificado.
+
+::: {.notes}
+`assert` pode ser desativado ao executar Python com otimizações. Para validar entradas de uma função, usar `raise`, como já apresentado.
+:::
+
+## Uma expressão matemática como função
+
+Uma função Python também representa uma regra matemática. Em $0 \leq x \leq 1$, vamos avaliar $u(x)=x(1-x)$ em alguns pontos.
+
+```{pyodide}
+#| autorun: true
+#| min-lines: 4
+#| max-lines: 10
+def solucao_referencia(posicao):
+    return posicao * (1.0 - posicao)
+
+for posicao in [0.0, 0.5, 1.0]:
+    print(f"u({posicao}) = {solucao_referencia(posicao)}")
+```
+
+**Experimente:** acrescente `0.25`. Qual é o valor da função nesse ponto?
+
+::: {.notes}
+Esta é uma avaliação de uma expressão fornecida, não a solução computacional de uma equação. A expressão também é solução de referência para Poisson com fonte 2 e condições homogêneas nos extremos.
+:::
+
+## Uma função pode receber outra função
+
+Passamos a função pelo nome, sem parênteses, quando queremos usá-la em outra operação. Assim, separamos a regra matemática dos pontos de avaliação.
+
+```{pyodide}
+#| autorun: true
+#| min-lines: 4
+#| max-lines: 10
+def solucao_referencia(posicao):
+    return posicao * (1.0 - posicao)
+def avaliar_em_pontos(funcao, pontos):
+    return [funcao(ponto) for ponto in pontos]
+
+pontos = [0.0, 0.25, 0.5, 0.75, 1.0]
+print(avaliar_em_pontos(solucao_referencia, pontos))
+```
+
+**Observe:** `solucao_referencia` passa a regra; `solucao_referencia(0.5)` calcula um valor.
+
+## Separar cálculo e apresentação {.output-columns}
+
+Uma função pequena tem uma responsabilidade clara. Aqui, ela calcula erros absolutos; a escolha de como apresentar os resultados fica fora do cálculo.
+
+```{pyodide}
+#| autorun: true
+#| min-lines: 4
+#| max-lines: 10
+def erros_absolutos(valores, referencias):
+    pares = zip(valores, referencias, strict=True)
+    return [abs(valor - referencia) for valor, referencia in pares]
+
+referencias = [0.0, 0.25, 0.0]
+aproximacoes = [0.0, 0.24, 0.0]
+erros = erros_absolutos(aproximacoes, referencias)
+print(erros)
+print(f"Maior erro nos pontos: {max(erros):.3f}")
+```
+
+**Experimente:** mude a mensagem sem alterar a função.
+
+::: {.notes}
+`strict=True` rejeita comprimentos diferentes. O máximo mede o erro apenas nos pontos informados, não em todo um intervalo.
+:::
+
+## Continuar estudando
+
+No [notebook suplementar](suplementos/notebooks/03-funcoes.ipynb), pratique funções, validação de entradas e verificações numéricas.
+
+Para cada função, identifique suas entradas, seu retorno e suas hipóteses. Essa organização permitirá reutilizar o cálculo em outros cadernos e módulos.
+
+### Referências
+
+- [Python: definição de funções](https://docs.python.org/pt-br/3/tutorial/controlflow.html#defining-functions)
+- [Python: erros e exceções](https://docs.python.org/pt-br/3/tutorial/errors.html)
+- [Python: `math.isclose`](https://docs.python.org/pt-br/3/library/math.html#math.isclose)
+

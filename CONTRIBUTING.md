@@ -11,6 +11,16 @@ pixi run lab
 
 Edite os arquivos `.ipynb` diretamente no Jupyter. Eles são a fonte dos cadernos. Use o ambiente do repositório e reinicie o kernel antes da execução final. Textos, instruções e comentários devem estar em PT-BR; nomes da API de Python e de bibliotecas permanecem como definidos por elas.
 
+As fontes das apresentações são os arquivos `.qmd` em `aulas/`. Use a identidade
+visual comum e confira o resultado no navegador. Cada slide deve explicar um
+conceito e manter seu exemplo curto e independente. Os notebooks complementam
+as aulas com estudo e exercícios. Veja o [guia das apresentações](aulas/README.md).
+
+O código de apoio está em `src/malhalib/`, instalado em modo editável pelo Pixi.
+Edite os módulos nessa pasta e importe-os como `malhalib`. Não é necessário
+acrescentar caminhos a `sys.path`. Reinicie os kernels que já importaram o módulo
+para que utilizem as alterações.
+
 ## Critérios para exemplos
 
 - Explique os pré-requisitos e mantenha pequenas as células de código.
@@ -28,6 +38,8 @@ Edite os arquivos `.ipynb` diretamente no Jupyter. Eles são a fonte dos caderno
 pixi run verificar
 pixi run atualizar-saidas
 pixi run html
+pixi run aulas-verificar
+pixi run aulas
 ```
 
 Além da execução, confira os gráficos e leia a sequência completa no Jupyter ou nos arquivos de `resultados/html/`: rótulos, legendas, unidades, fórmulas, resultados esperados e dependências entre células. Testes dos módulos não substituem a revisão matemática e didática.

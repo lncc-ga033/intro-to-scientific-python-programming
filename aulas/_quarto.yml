@@ -1,0 +1,62 @@
+project:
+  type: default
+  output-dir: _site
+  render:
+    - "[0-9]*.qmd"
+    - index.qmd
+  pre-render:
+    - ../scripts/preparar_aulas.py
+  resources:
+    - assets/
+    - suplementos/
+
+filters:
+  - assets/typografia.lua
+  - assets/corpo-slides.lua
+
+lang: pt-BR
+author:
+  - name: Prof. Diego Volpatto
+    affiliation: Programa de Pós-Graduação em Modelagem Computacional · LNCC
+date: ""
+from: markdown-smart
+format:
+  live-revealjs:
+    theme: [default, assets/lncc.scss]
+    width: 1280
+    height: 720
+    margin: 0.08
+    center: false
+    transition: none
+    slide-number: c/t
+    navigation-mode: linear
+    controls: true
+    progress: true
+    hash: true
+    history: false
+    touch: true
+    menu: true
+    preview-links: false
+    html-math-method:
+      method: mathjax
+      url: https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js
+    logo: assets/lncc.png
+    footer: "GA033 · LNCC · Prof. Diego Volpatto · CC BY 4.0"
+    include-after-body: assets/interacao.html
+    pyodide:
+      engine-url: https://cdn.jsdelivr.net/pyodide/v0.28.1/full/
+      resources: []
+      cell-options:
+        autorun: true
+        min-lines: 3
+        max-lines: 12
+        fig-width: 6
+        fig-height: 3
+        fig-dpi: 90
+    live:
+      show-hints: false
+      show-solutions: false
+      show-grading: false
+
+execute:
+  enabled: false

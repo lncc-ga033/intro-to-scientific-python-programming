@@ -18,10 +18,8 @@ def verificar(gravar=False):
         raise RuntimeError("Nenhum notebook encontrado.")
     with tempfile.TemporaryDirectory(prefix="ga033-") as pasta:
         copia = Path(pasta)
-        for nome in ("notebooks", "exemplos"):
-            shutil.copytree(RAIZ / nome, copia / nome)
-        # O manifesto também identifica a raiz nos exemplos de caminhos relativos.
-        shutil.copy2(RAIZ / "pixi.toml", copia / "pixi.toml")
+        shutil.copytree(RAIZ / "notebooks", copia / "notebooks")
+        # malhalib é importado da instalação editável no ambiente do Pixi.
         for arquivo in arquivos:
             caderno = nbformat.read(arquivo, as_version=4)
             nbformat.validate(caderno)

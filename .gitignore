@@ -9,3 +9,11 @@ __pycache__/
 resultados/
 .validacao/
 .vscode/
+aulas/_site/
+aulas/.quarto/
+aulas/malhalib/
+aulas/suplementos/
+src/*.egg-info/
+build/
+*.egg-info/
+dist/

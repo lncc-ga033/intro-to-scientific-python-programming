@@ -1,0 +1,336 @@
+---
+title: "02 -- Controle de fluxo"
+subtitle: "Decidir, repetir e construir resultados"
+format:
+  live-revealjs:
+    pyodide:
+      packages: []
+---
+
+## O que é controle de fluxo?
+
+Controle de fluxo define quais instruções são executadas e em que ordem. Usaremos **condicionais** para escolher um caminho e **laços** para repetir operações.
+
+```{pyodide}
+#| autorun: true
+#| min-lines: 4
+#| max-lines: 10
+medicoes = [20.0, 21.0, 22.0]
+for medicao in medicoes:
+    if medicao > 20.5:
+        print(f"Acima do limite: {medicao}")
+```
+
+**Preveja:** quais medições serão apresentadas?
+
+::: {.notes}
+Usar este exemplo como mapa da aula. Ainda não detalhar toda a sintaxe: primeiro identificar repetição e decisão, depois desmembrá-las.
+:::
+
+## `if`: executar sob uma condição
+
+`if` executa seu bloco quando a condição é verdadeira. Os dois-pontos iniciam o bloco e a indentação mostra quais linhas pertencem a ele.
+
+```{pyodide}
+#| autorun: true
+#| min-lines: 4
+#| max-lines: 10
+temperatura = 120.0
+if temperatura > 100.0:
+    print("A temperatura ultrapassou o limite.")
+    print(f"Excesso: {temperatura - 100.0:.1f} °C")
+print("A verificação terminou.")
+```
+
+**Experimente:** use `80.0`. Qual mensagem permanece?
+
+## Indentação define o bloco
+
+Python usa a indentação para agrupar instruções. Neste curso, usamos quatro espaços por nível; uma linha sem essa indentação volta ao fluxo externo.
+
+```{pyodide}
+#| autorun: true
+#| min-lines: 4
+#| max-lines: 10
+sensor_disponivel = False
+if sensor_disponivel:
+    print("Esta linha pertence ao if.")
+print("Esta linha está fora do if.")
+```
+
+**Experimente:** mude a condição para `True` e acompanhe os dois caminhos.
+
+## `else`: o caminho restante
+
+`else` executa seu bloco quando a condição de `if` é falsa. Os dois blocos representam alternativas: somente um deles será executado.
+
+```{pyodide}
+#| autorun: true
+#| min-lines: 4
+#| max-lines: 10
+medicao = None
+if medicao is None:
+    print("A medição ainda não está disponível.")
+else:
+    print(f"Medição recebida: {medicao}")
+```
+
+**Experimente:** substitua `None` por `0.0`.
+
+## `elif`: testar outra possibilidade {.output-columns}
+
+`elif` testa uma condição quando as anteriores foram falsas. Em uma cadeia `if`/`elif`/`else`, no máximo um bloco é executado.
+
+```{pyodide}
+#| autorun: true
+#| min-lines: 4
+#| max-lines: 10
+temperatura = 25.0
+if temperatura < 0.0:
+    faixa = "abaixo"
+elif temperatura <= 100.0:
+    faixa = "dentro"
+else:
+    faixa = "acima"
+print(f"{temperatura:.1f} °C: {faixa} da faixa")
+```
+
+**Experimente:** confira `0.0` e `100.0`. A qual faixa pertencem?
+
+## Combinar condições
+
+`and` exige condições verdadeiras; `or` aceita uma alternativa verdadeira; `not` nega uma condição. Comparações encadeadas também podem expressar uma faixa.
+
+```{pyodide}
+#| autorun: true
+#| min-lines: 4
+#| max-lines: 10
+leitura = 0.75
+sensor_disponivel = True
+leitura_na_faixa = 0.0 <= leitura <= 1.0
+print(sensor_disponivel and leitura_na_faixa)
+print(not sensor_disponivel or not leitura_na_faixa)
+```
+
+**Experimente:** mude uma condição por vez e confira o resultado.
+
+## `for`: percorrer uma sequência {.output-columns}
+
+Um laço `for` executa seu bloco para cada item de uma sequência. A cada passagem, o nome após `for` recebe o próximo item.
+
+```{pyodide}
+#| autorun: true
+#| min-lines: 4
+#| max-lines: 10
+medicoes = [20.0, 21.0, 22.0]
+for medicao in medicoes:
+    print(f"Medição: {medicao:.1f}")
+print("Todos os itens foram percorridos.")
+```
+
+**Experimente:** acrescente uma medição e observe o número de passagens.
+
+## Acumular resultados {.output-columns}
+
+Um acumulador reúne resultados durante o laço. Inicialize-o antes da repetição; `soma += valor` equivale a `soma = soma + valor`.
+
+```{pyodide}
+#| autorun: true
+#| min-lines: 4
+#| max-lines: 10
+medicoes = [20.0, 21.0, 22.0]
+soma_medicoes = 0.0
+for medicao in medicoes:
+    soma_medicoes += medicao
+    print(f"Soma parcial: {soma_medicoes}")
+print(f"Média: {soma_medicoes / len(medicoes)}")
+```
+
+**Experimente:** acompanhe o valor da soma em cada passagem.
+
+## `range`: uma sequência de inteiros {.output-columns}
+
+`range(inicio, fim, passo)` fornece inteiros para percorrer. O limite final não entra; com um argumento, o início é zero e o passo é um.
+
+```{pyodide}
+#| autorun: true
+#| min-lines: 4
+#| max-lines: 10
+print(list(range(4)))
+print(list(range(1, 5)))
+print(list(range(0, 7, 2)))
+for indice in range(4):
+    print(f"Repetição {indice}")
+```
+
+**Experimente:** faça a contagem começar em `1` e terminar em `4`.
+
+## `enumerate`: índice e valor
+
+`enumerate` fornece o índice e o item em cada passagem. Use-o quando ambos forem necessários, distinguindo o índice do valor guardado naquela posição.
+
+```{pyodide}
+#| autorun: true
+#| min-lines: 4
+#| max-lines: 10
+posicoes = [0.0, 0.5, 1.0]
+for indice, posicao in enumerate(posicoes):
+    print(f"Nó {indice}: posição {posicao:.2f}")
+```
+
+**Experimente:** acrescente uma posição e confira a numeração.
+
+## `zip`: percorrer pares
+
+`zip` associa itens de duas sequências pela posição. `strict=True` exige que elas tenham o mesmo comprimento, evitando descartar itens silenciosamente.
+
+```{pyodide}
+#| autorun: true
+#| min-lines: 4
+#| max-lines: 10
+posicoes = [0.0, 0.5, 1.0]
+temperaturas = [20.0, 25.0, 22.0]
+for posicao, temperatura in zip(posicoes, temperaturas, strict=True):
+    print(f"x = {posicao:.1f}: {temperatura:.1f} °C")
+```
+
+**Experimente:** mude uma temperatura e confira o par correspondente.
+
+::: {.notes}
+O comportamento padrão de `zip` é terminar na sequência mais curta. Explicar que o argumento `strict=True` é uma escolha explícita para dados que devem formar pares. Retirar um item provoca `ValueError` e pode ser demonstrado ao vivo.
+:::
+
+## `while`: repetir enquanto for verdade {.output-columns}
+
+`while` testa uma condição antes de cada passagem. O corpo deve atualizar algo que permita encerrar a repetição; uma condição que nunca muda pode gerar um laço infinito.
+
+```{pyodide}
+#| autorun: true
+#| min-lines: 4
+#| max-lines: 10
+contador = 0
+while contador < 4:
+    print(f"Passagem {contador}")
+    contador += 1
+print(f"Contador final: {contador}")
+```
+
+**Experimente:** mude o limite para `2`. Quantas passagens ocorrem?
+
+::: {.notes}
+Não sugerir remover o incremento como exercício no navegador: isso pode bloquear o cálculo. Identificar verbalmente a condição de término.
+:::
+
+## `break`: encerrar o laço
+
+`break` interrompe imediatamente o laço em que aparece. Ele é útil quando já encontramos a informação procurada e podemos parar a busca.
+
+```{pyodide}
+#| autorun: true
+#| min-lines: 4
+#| max-lines: 10
+medicoes = [20.0, 21.0, 120.0, 130.0]
+for medicao in medicoes:
+    if medicao > 100.0:
+        print(f"Primeira medição acima do limite: {medicao}")
+        break
+```
+
+**Experimente:** coloque uma medição acima do limite no início da lista.
+
+## `continue`: passar ao próximo item
+
+`continue` encerra a passagem atual e segue para a próxima. Podemos usá-lo para desconsiderar um item sem encerrar todo o laço.
+
+```{pyodide}
+#| autorun: true
+#| min-lines: 4
+#| max-lines: 10
+medicoes = [20.0, None, 21.0]
+for medicao in medicoes:
+    if medicao is None:
+        continue
+    print(f"Medição disponível: {medicao}")
+```
+
+**Experimente:** acrescente outra medição ausente e confira as mensagens.
+
+## Laços podem estar dentro de laços {.output-columns}
+
+Um laço aninhado percorre outra sequência em cada passagem do laço externo. A indentação mostra qual repetição controla cada instrução.
+
+```{pyodide}
+#| autorun: true
+#| min-lines: 4
+#| max-lines: 10
+linhas = [0, 1]
+colunas = [0, 1, 2]
+for linha in linhas:
+    for coluna in colunas:
+        print(f"Par: ({linha}, {coluna})")
+```
+
+**Preveja:** quantos pares são apresentados? Qual índice muda primeiro?
+
+## Construir outra lista com um laço
+
+Podemos aplicar uma operação a cada item e guardar os resultados com `append`. A nova lista reúne a saída, enquanto a lista de entrada permanece igual.
+
+```{pyodide}
+#| autorun: true
+#| min-lines: 4
+#| max-lines: 10
+valores = [0.0, 0.25, 0.5, 1.0]
+quadrados = []
+for valor in valores:
+    quadrados.append(valor**2)
+print(quadrados)
+print("Entrada:", valores)
+```
+
+**Experimente:** calcule o dobro em vez do quadrado.
+
+## List comprehension
+
+Uma *list comprehension* constrói uma lista com a forma `[expressao for item in sequencia]`. Ela resume o laço do slide anterior quando a operação é curta e legível.
+
+```{pyodide}
+#| autorun: true
+#| min-lines: 4
+#| max-lines: 10
+valores = [0.0, 0.25, 0.5, 1.0]
+quadrados = [valor**2 for valor in valores]
+print(quadrados)
+print("Entrada:", valores)
+```
+
+**Experimente:** reproduza a operação que fez no laço anterior.
+
+## Selecionar com uma comprehension
+
+Uma condição ao final seleciona os itens: `[expressao for item in sequencia if condicao]`. Para várias decisões e etapas, prefira um laço explícito.
+
+```{pyodide}
+#| autorun: true
+#| min-lines: 4
+#| max-lines: 10
+valores = [-2.0, 0.0, 1.5, -0.5, 3.0]
+nao_negativos = [valor for valor in valores if valor >= 0.0]
+print(nao_negativos)
+print("Entrada:", valores)
+```
+
+**Experimente:** selecione somente os valores estritamente positivos.
+
+## Continuar estudando
+
+Retome as versões equivalentes com laço e comprehension no [notebook suplementar](suplementos/notebooks/02-controle-de-fluxo.ipynb).
+
+Para cada laço, identifique o que muda a cada passagem e o que encerra a repetição. Para cada condicional, confira os casos nos limites das faixas.
+
+### Referências
+
+- [Python: ferramentas de controle de fluxo](https://docs.python.org/pt-br/3/tutorial/controlflow.html)
+- [Python: técnicas de iteração](https://docs.python.org/pt-br/3/tutorial/datastructures.html#looping-techniques)
+- [Python: funções embutidas](https://docs.python.org/pt-br/3/library/functions.html)
+

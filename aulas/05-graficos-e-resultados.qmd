@@ -1,0 +1,183 @@
+---
+title: "05 -- Gráficos e resultados"
+subtitle: "Dados, comparação e erro"
+format:
+  live-revealjs:
+    pyodide:
+      packages: [numpy, matplotlib]
+---
+
+## O que um gráfico precisa comunicar? {.plot-slide}
+
+Uma figura associa valores a posições e estilos visuais. Identifique as variáveis nos eixos e diferencie as séries pela legenda.
+
+```{pyodide}
+import matplotlib.pyplot as plt
+
+fig, ax = plt.subplots(figsize=(6, 3), constrained_layout=True)
+ax.plot([0, 1, 2], [0, 1, 4], "o-", label="Dados")
+ax.set(xlabel="x", ylabel="y")
+ax.grid(alpha=0.25)
+ax.legend()
+plt.show()
+```
+
+## `fig` e `ax`: duas responsabilidades {.plot-slide}
+
+`fig` representa a figura completa; `ax` representa um sistema de eixos. Chamar métodos de `ax` deixa explícito qual gráfico estamos modificando.
+
+```{pyodide}
+import numpy as np
+import matplotlib.pyplot as plt
+
+x = np.linspace(0.0, 1.0, 101)
+fig, ax = plt.subplots(figsize=(6, 3), constrained_layout=True)
+ax.plot(x, x * (1.0 - x), color="#1764a3")
+ax.set(xlabel="x", ylabel="u(x)", title="u(x) = x(1 - x)")
+ax.grid(alpha=0.25)
+plt.show()
+```
+
+## Amostrar: avaliar em pontos escolhidos
+
+A amostragem calcula valores de uma função em um conjunto finito de pontos. Aqui $u(x)=x(1-x)$, com $0\le x\le1$, é uma referência conhecida.
+
+```{pyodide}
+import numpy as np
+
+x_nos = np.linspace(0.0, 1.0, 5)
+u_nos = x_nos * (1.0 - x_nos)
+print("Nós:", x_nos)
+print("Valores:", u_nos)
+```
+
+## Curva e amostras na mesma figura {.plot-slide}
+
+Uma linha desenhada com muitos pontos mostra a forma da referência. Marcadores destacam apenas os valores amostrados; as variáveis deste exemplo são adimensionais.
+
+```{pyodide}
+import numpy as np
+import matplotlib.pyplot as plt
+
+x = np.linspace(0.0, 1.0, 201)
+x_nos = np.linspace(0.0, 1.0, 5)
+fig, ax = plt.subplots(figsize=(6, 3), constrained_layout=True)
+ax.plot(x, x * (1 - x), label="Referência", color="#1764a3")
+ax.scatter(x_nos, x_nos * (1 - x_nos), label="5 amostras", color="#a65317")
+ax.set(xlabel="x", ylabel="u(x)")
+ax.legend()
+plt.show()
+```
+
+## Interpolar: preencher entre os dados
+
+`np.interp` avalia a interpolação linear entre nós em ordem crescente. Cada intervalo recebe um segmento de reta; consulte pontos dentro do domínio dos dados.
+
+```{pyodide}
+import numpy as np
+
+x_nos = np.linspace(0.0, 1.0, 5)
+u_nos = x_nos * (1.0 - x_nos)
+x_consulta = np.array([0.125, 0.375])
+u_linear = np.interp(x_consulta, x_nos, u_nos)
+print("Interpolação:", u_linear)
+print("Referência:", x_consulta * (1.0 - x_consulta))
+```
+
+## Comparar referência e interpolação {.plot-slide}
+
+O gráfico permite observar a diferença entre a função conhecida e os segmentos que unem as amostras. Aqui estudamos interpolação de dados.
+
+```{pyodide}
+import numpy as np
+import matplotlib.pyplot as plt
+
+x = np.linspace(0.0, 1.0, 201)
+x_nos = np.linspace(0.0, 1.0, 5)
+fig, ax = plt.subplots(figsize=(6, 3), constrained_layout=True)
+ax.plot(x, x * (1 - x), label="Referência", color="#1764a3")
+ax.plot(x_nos, x_nos * (1 - x_nos), "o--", label="Linear", color="#a65317")
+ax.set(xlabel="x", ylabel="u(x)")
+ax.legend()
+plt.show()
+```
+
+## Desenhar o erro revela diferenças pequenas {.plot-slide}
+
+Definimos $e(x)=u(x)-u_{\mathrm{linear}}(x)$. Uma figura do erro continua informativa quando as duas curvas parecem coincidir.
+
+```{pyodide}
+import numpy as np
+import matplotlib.pyplot as plt
+
+x = np.linspace(0.0, 1.0, 201)
+x_nos = np.linspace(0.0, 1.0, 9)
+u_linear = np.interp(x, x_nos, x_nos * (1 - x_nos))
+erro = x * (1 - x) - u_linear
+fig, ax = plt.subplots(figsize=(6, 3), constrained_layout=True)
+ax.plot(x, erro, color="#a65317")
+ax.set(xlabel="x", ylabel="Erro", title="Referência - interpolação")
+ax.grid(alpha=0.25)
+plt.show()
+```
+
+## Maior erro observado
+
+`max(abs(erro))` mede o maior erro **nos pontos avaliados**. Esse valor aproxima o máximo contínuo quando a amostragem de avaliação é suficientemente fina.
+
+```{pyodide}
+import numpy as np
+
+x = np.linspace(0.0, 1.0, 1601)
+x_nos = np.linspace(0.0, 1.0, 9)
+erro = x * (1 - x) - np.interp(x, x_nos, x_nos * (1 - x_nos))
+print(f"Maior erro observado: {np.max(np.abs(erro)):.6f}")
+```
+
+## Norma de função e norma de vetor
+
+A norma $L^2$ usa uma integral: $\|e\|_{L^2}=\sqrt{\int_0^1 e(x)^2\,dx}$. A norma euclidiana do vetor é a raiz da soma dos quadrados, sem o espaçamento entre pontos.
+
+```{pyodide}
+import numpy as np
+
+x = np.linspace(0.0, 1.0, 1601)
+x_nos = np.linspace(0.0, 1.0, 9)
+erro = x * (1 - x) - np.interp(x, x_nos, x_nos * (1 - x_nos))
+l2_aproximada = np.sqrt(np.trapezoid(erro**2, x))
+print(f"L2 por quadratura: {l2_aproximada:.6f}")
+print(f"Norma do vetor: {np.linalg.norm(erro):.6f}")
+```
+
+## Experimente: mudar o número de nós
+
+Edite `numero_nos`, execute e compare. A malha de avaliação fica fixa para que a comparação use os mesmos pontos.
+
+```{pyodide}
+import numpy as np
+
+numero_nos = 9  # Experimente 5 e 17.
+x = np.linspace(0.0, 1.0, 1601)
+x_nos = np.linspace(0.0, 1.0, numero_nos)
+u_linear = np.interp(x, x_nos, x_nos * (1 - x_nos))
+print("Intervalos:", numero_nos - 1)
+print(f"Maior erro observado: {np.max(np.abs(x * (1 - x) - u_linear)):.6f}")
+```
+
+## Uma figura legível tem escolhas explícitas
+
+Rótulos, legenda, escala e tamanho devem ajudar a interpretação. Antes de mudar cores e estilos, confira os valores e os shapes dos arrays.
+
+- Use unidades quando os dados tiverem dimensão física.
+- Diferencie referência, amostras e aproximação.
+- Compare aproximações nos mesmos pontos.
+- Registre como cada medida de erro foi calculada.
+
+## Para experimentar e estudar
+
+O notebook suplementar reúne figuras, exercícios e exportação para arquivo. Repita o exemplo para outra função e examine também o gráfico do erro.
+
+- [Notebook suplementar 05](suplementos/notebooks/05-graficos-e-resultados.ipynb)
+- [Matplotlib: guia inicial](https://matplotlib.org/stable/users/explain/quick_start.html)
+- [`numpy.interp`](https://numpy.org/doc/stable/reference/generated/numpy.interp.html)
+- [`numpy.trapezoid`](https://numpy.org/doc/stable/reference/generated/numpy.trapezoid.html)

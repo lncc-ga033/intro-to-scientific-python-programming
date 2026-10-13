@@ -45,15 +45,22 @@ Escolha uma interface e use-a durante a aula. Ambas executam os mesmos arquivos 
 
 ## 2. Reconhecer os arquivos do ambiente
 
-Abra `pixi.toml` e localize três seções:
+Abra `pixi.toml` e localize estas seções:
 
 - `[workspace]`: identifica o projeto, seus canais e plataformas.
 - `[dependencies]`: declara Python e bibliotecas, com intervalos de versões aceitos.
+- `[pypi-dependencies]`: instala o pacote local `malhalib` em modo editável.
 - `[tasks]`: dá nomes aos comandos que repetimos durante o trabalho.
 
 Por exemplo, a tarefa `lab = "jupyter lab"` permite usar `pixi run lab`. O Pixi executa esse comando dentro do ambiente do projeto.
 
 O `pixi.lock` registra os pacotes resolvidos e suas versões por plataforma. Esse arquivo é gerado pelo Pixi; acompanha o projeto e normalmente não é editado manualmente. Já a pasta `.pixi/` é criada localmente e pode ser reconstruída a partir da descrição do ambiente. Por isso ela está no `.gitignore`.
+
+O pacote `malhalib` fica em `src/malhalib/`; seu nome e suas dependências Python
+são descritos em `pyproject.toml`. A instalação editável permite importar o pacote
+enquanto trabalhamos na sua fonte, sem copiar arquivos nem alterar caminhos no
+notebook. Para um processo que já importou um módulo, reinicie o kernel após
+editar sua fonte. Esse exemplo será retomado no caderno de organização e classes.
 
 **Ambiente reproduzível não significa máquina idêntica.** O ambiente descreve dependências de software. Hardware, sistema operacional, bibliotecas numéricas e ordem das operações também podem influenciar resultados em ponto flutuante. A verificação de resultados científicos usa tolerâncias apropriadas ao problema.
 

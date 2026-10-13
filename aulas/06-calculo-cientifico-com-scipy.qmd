@@ -1,0 +1,208 @@
+---
+title: "06 -- Cálculo científico com SciPy"
+subtitle: "Sistemas lineares, esparsidade e quadratura"
+format:
+  live-revealjs:
+    pyodide:
+      packages: [numpy, scipy, matplotlib]
+---
+
+## SciPy: algoritmos sobre dados numéricos
+
+O NumPy organiza arrays e operações básicas; a SciPy reúne algoritmos científicos. Os submódulos indicam o tipo de problema: álgebra linear, integração, otimização, entre outros.
+
+```{pyodide}
+import scipy
+from scipy.linalg import solve
+from scipy.integrate import quad
+
+print("SciPy:", scipy.__version__)
+print("Sistema linear:", solve.__name__)
+print("Quadratura:", quad.__name__)
+```
+
+## Sistema linear: matriz e vetor {.output-columns}
+
+Queremos encontrar $u$ que satisfaça $Au=b$. Nesta aula a matriz é fornecida; cada linha representa uma equação e cada coluna uma incógnita.
+
+$$
+\begin{bmatrix}3&-1\\-1&2\end{bmatrix}
+\begin{bmatrix}u_0\\u_1\end{bmatrix}
+=
+\begin{bmatrix}1\\3\end{bmatrix}.
+$$
+
+```{pyodide}
+import numpy as np
+
+A = np.array([[3.0, -1.0], [-1.0, 2.0]])
+b = np.array([1.0, 3.0])
+print("Shapes:", A.shape, b.shape)
+```
+
+## Resolver com `scipy.linalg.solve`
+
+`solve(A, b)` calcula a solução de um sistema denso. Formar a inversa explicitamente é desnecessário para obter essa solução.
+
+```{pyodide}
+import numpy as np
+from scipy.linalg import solve
+
+A = np.array([[3.0, -1.0], [-1.0, 2.0]])
+b = np.array([1.0, 3.0])
+u = solve(A, b)
+print("Solução:", u)
+```
+
+## Resíduo e erro medem coisas diferentes
+
+O resíduo é $r=Au-b$; o erro exige uma solução de referência. Um resíduo pequeno, isoladamente, não garante erro pequeno em um sistema mal condicionado.
+
+```{pyodide}
+import numpy as np
+from scipy.linalg import solve
+
+A = np.array([[3.0, -1.0], [-1.0, 2.0]])
+b = np.array([1.0, 3.0])
+u = solve(A, b)
+print("Norma do resíduo:", np.linalg.norm(A @ u - b))
+print("Erro contra [1, 2]:", np.linalg.norm(u - [1.0, 2.0]))
+```
+
+## Esparsidade: muitos zeros estruturais {.plot-slide}
+
+Uma matriz esparsa armazena principalmente entradas não nulas e seus índices. A figura mostra a posição dos valores armazenados em uma matriz tridiagonal.
+
+```{pyodide}
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.sparse import diags_array
+
+A = diags_array([-np.ones(7), 2*np.ones(8), -np.ones(7)], offsets=[-1, 0, 1])
+fig, ax = plt.subplots(figsize=(6, 3), constrained_layout=True)
+ax.spy(A, markersize=9, color="#1764a3")
+ax.set(xlabel="Coluna", ylabel="Linha", title="Padrão das entradas não nulas")
+plt.show()
+```
+
+## CSR: valores, colunas e início de linhas {.output-columns}
+
+CSR (*Compressed Sparse Row*) agrupa as entradas por linha. `data` guarda valores, `indices` guarda colunas e `indptr` delimita os trechos de cada linha.
+
+```{pyodide}
+from scipy.sparse import csr_array
+
+A = csr_array([[2.0, 0.0, -1.0], [0.0, 3.0, 0.0]])
+print("Valores:", A.data)
+print("Colunas:", A.indices)
+print("Início/fim de cada linha:", A.indptr)
+print("Entradas armazenadas:", A.nnz)
+```
+
+## Construir pelas diagonais {.output-columns}
+
+`diags_array` recebe os valores de cada diagonal e seus deslocamentos. A diagonal principal tem deslocamento `0`; a inferior, `-1`; a superior, `1`.
+
+```{pyodide}
+import numpy as np
+from scipy.sparse import diags_array
+
+n = 4
+A = diags_array([-np.ones(n-1), 2*np.ones(n), -np.ones(n-1)],
+                offsets=[-1, 0, 1], format="csr")
+print("Shape:", A.shape, "| armazenadas:", A.nnz)
+print(A.toarray())  # Só para inspecionar este exemplo pequeno.
+```
+
+## Resolver um sistema esparso {.output-columns}
+
+`spsolve` recebe uma matriz esparsa e o vetor do lado direito. O produto `A @ u` mantém o mesmo significado usado nos arrays densos.
+
+```{pyodide}
+import numpy as np
+from scipy.sparse import diags_array
+from scipy.sparse.linalg import spsolve
+
+A = diags_array([-np.ones(3), 2*np.ones(4), -np.ones(3)],
+                offsets=[-1, 0, 1], format="csr")
+b = np.array([1.0, 0.0, 0.0, 1.0])
+u = spsolve(A, b)
+print("Solução:", u)
+print("Norma do resíduo:", np.linalg.norm(A @ u - b))
+```
+
+## Comparar o armazenamento dos dados {.output-columns}
+
+No formato CSR, contamos os buffers de valores e índices. Esta comparação exclui a sobrecarga dos objetos e as estruturas usadas durante a resolução.
+
+```{pyodide}
+import numpy as np
+from scipy.sparse import diags_array
+
+n = 100
+A = diags_array([-np.ones(n-1), 2*np.ones(n), -np.ones(n-1)],
+                offsets=[-1, 0, 1], format="csr")
+bytes_csr = A.data.nbytes + A.indices.nbytes + A.indptr.nbytes
+bytes_denso = n * n * np.dtype(float).itemsize
+print("CSR (buffers):", bytes_csr, "bytes")
+print("Denso (valores):", bytes_denso, "bytes")
+```
+
+## Quadratura: aproximar uma integral {.output-columns}
+
+`quad` integra uma função escalar em um intervalo. Ela devolve a aproximação da integral e uma **estimativa** do erro absoluto.
+
+Exemplo: $I=\int_0^1 x^2\,dx=1/3$.
+
+```{pyodide}
+from scipy.integrate import quad
+
+
+def integrando(x):
+    return x**2
+
+integral, erro_estimado = quad(integrando, 0.0, 1.0)
+print("Integral:", integral)
+print("Estimativa de erro:", erro_estimado)
+```
+
+## Comparar com um valor conhecido {.output-columns}
+
+Quando a resposta exata está disponível, podemos calcular o erro observado. A estimativa de `quad` não é uma demonstração de um limite rigoroso para toda função.
+
+```{pyodide}
+from scipy.integrate import quad
+
+
+def integrando(x):
+    return x**2
+
+integral, estimativa = quad(integrando, 0.0, 1.0)
+print("Erro contra 1/3:", abs(integral - 1.0/3.0))
+print("Estimativa devolvida:", estimativa)
+```
+
+## Integrar uma função com parâmetros
+
+`args` passa parâmetros adicionais à função integranda. Essa interface preserva a separação entre a expressão matemática e o algoritmo de integração.
+
+```{pyodide}
+from scipy.integrate import quad
+
+
+def integrando(x, coeficiente):
+    return coeficiente * x * (1.0 - x)
+
+integral, estimativa = quad(integrando, 0.0, 1.0, args=(2.0,))
+print("Integral:", integral, "| referência:", 1.0/3.0)
+```
+
+## Para experimentar e estudar
+
+Altere a matriz ou o integrando e escolha uma verificação adequada. O notebook inclui exercícios e quadraturas de produtos de funções locais.
+
+- [Notebook suplementar 06](suplementos/notebooks/06-calculo-cientifico-com-scipy.ipynb)
+- [`scipy.linalg.solve`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.linalg.solve.html)
+- [Arrays esparsos](https://docs.scipy.org/doc/scipy/reference/sparse.html)
+- [`spsolve`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.linalg.spsolve.html)
+- [`quad`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.quad.html)

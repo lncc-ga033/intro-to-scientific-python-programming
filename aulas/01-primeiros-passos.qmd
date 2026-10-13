@@ -1,0 +1,335 @@
+---
+title: "01 -- Primeiros passos"
+subtitle: "Valores, nomes e coleções em Python"
+format:
+  live-revealjs:
+    pyodide:
+      packages: []
+---
+
+## Python como calculadora
+
+Uma expressão combina valores e operadores para produzir um resultado. `print` mostra esse resultado; parênteses tornam a ordem do cálculo explícita.
+
+```{pyodide}
+#| autorun: true
+#| min-lines: 4
+#| max-lines: 10
+print(2 + 3 * 4)
+print((2 + 3) * 4)
+print(2**3)
+print(7 / 2)
+```
+
+**Experimente:** mude um operador e preveja o resultado antes de executar.
+
+::: {.notes}
+Apresentar primeiro os botões de execução e a edição da célula. A potência é escrita com dois asteriscos; `^` tem outro significado em Python.
+:::
+
+## Quociente e resto
+
+`//` calcula o quociente arredondado para baixo; `%` calcula o resto. Para inteiros positivos, podemos usá-los para distribuir uma quantidade em grupos.
+
+```{pyodide}
+#| autorun: true
+#| min-lines: 4
+#| max-lines: 10
+numero_itens = 17
+itens_por_grupo = 4
+print(numero_itens // itens_por_grupo)
+print(numero_itens % itens_por_grupo)
+```
+
+**Experimente:** quantos grupos completos podemos formar com 20 itens?
+
+## Dar nome a um valor
+
+A atribuição `nome = valor` associa um nome a um objeto. Use nomes que expliquem o significado dos dados e `_` para separar palavras.
+
+```{pyodide}
+#| autorun: true
+#| min-lines: 4
+#| max-lines: 10
+temperatura_inicial = 18.5
+temperatura_final = 24.0
+variacao_temperatura = temperatura_final - temperatura_inicial
+print(variacao_temperatura)
+```
+
+**Experimente:** troque as temperaturas de posição. O sinal faz sentido?
+
+## Tipos básicos
+
+O tipo indica que objeto estamos usando. `int` representa inteiros; `float`, números de ponto flutuante; `bool`, valores lógicos; `str`, texto.
+
+```{pyodide}
+#| autorun: true
+#| min-lines: 4
+#| max-lines: 10
+print(type(4))
+print(type(4.0))
+print(type(True))
+print(type("aluminio"))
+```
+
+**Experimente:** `4` e `4.0` têm o mesmo tipo? E o mesmo valor numérico?
+
+## Comparar valores
+
+Uma comparação produz `True` ou `False`. `==` testa igualdade; `=` faz uma atribuição. Também podemos comparar com `!=`, `<`, `<=`, `>` e `>=`.
+
+```{pyodide}
+#| autorun: true
+#| min-lines: 4
+#| max-lines: 10
+temperatura = 25.0
+print(temperatura == 25.0)
+print(temperatura != 25.0)
+print(temperatura >= 0.0)
+print(temperatura > 100.0)
+```
+
+**Experimente:** mude a temperatura para `120.0` e confira as comparações.
+
+## Texto com valores: f-strings
+
+Uma *f-string* inclui valores dentro de um texto: use `f` antes das aspas e `{nome}` para inserir um valor. `:.1f` pede uma casa decimal na apresentação.
+
+```{pyodide}
+#| autorun: true
+#| min-lines: 4
+#| max-lines: 10
+material = "cobre"
+temperatura = 23.4567
+print(f"Material: {material}")
+print(f"Temperatura: {temperatura:.1f} °C")
+print(temperatura)
+```
+
+**Experimente:** exiba três casas decimais. O valor guardado foi alterado?
+
+## Converter texto em número
+
+O texto `"12.5"` contém caracteres; ele ainda não é um número. `float` e `int` convertem textos numéricos, enquanto `str` converte um objeto em texto.
+
+```{pyodide}
+#| autorun: true
+#| min-lines: 4
+#| max-lines: 10
+texto_temperatura = "12.5"
+temperatura = float(texto_temperatura)
+repeticoes = int("4")
+print(temperatura + 2.0)
+print(str(repeticoes) + " repetições")
+```
+
+**Experimente:** use outro texto numérico. O separador decimal é um ponto.
+
+## `None`: ausência de um valor
+
+`None` representa um valor ausente. Ele é diferente de zero, de texto vazio e de `False`. Use `is None` para verificar essa ausência.
+
+```{pyodide}
+#| autorun: true
+#| min-lines: 4
+#| max-lines: 10
+medicao = None
+medicao_zero = 0.0
+print(medicao is None)
+print(medicao_zero is None)
+```
+
+**Experimente:** atribua `0.0` a `medicao` e execute novamente.
+
+## Listas: uma sequência de valores
+
+Uma lista reúne objetos em uma ordem. Colchetes delimitam a lista, vírgulas separam seus itens e `len` informa sua quantidade.
+
+```{pyodide}
+#| autorun: true
+#| min-lines: 4
+#| max-lines: 10
+posicoes = [0.0, 0.25, 0.5, 0.75, 1.0]
+print(posicoes)
+print(f"Número de posições: {len(posicoes)}")
+print(f"Intervalos consecutivos: {len(posicoes) - 1}")
+```
+
+**Experimente:** acrescente uma posição. Quantos intervalos existem agora?
+
+## Índices: acessar um item
+
+Os índices começam em zero. `lista[0]` acessa o primeiro item; `lista[-1]`, o último. Um índice identifica a posição do item, não o valor guardado nele.
+
+```{pyodide}
+#| autorun: true
+#| min-lines: 4
+#| max-lines: 10
+posicoes = [0.0, 0.25, 0.5, 0.75, 1.0]
+print(posicoes[0])
+print(posicoes[2])
+print(posicoes[-1])
+```
+
+**Experimente:** acesse o segundo e o penúltimo item.
+
+## Fatias: acessar uma parte
+
+`lista[inicio:fim:passo]` seleciona uma parte da sequência. O índice final fica fora da seleção; os limites e o passo podem ser omitidos.
+
+```{pyodide}
+#| autorun: true
+#| min-lines: 4
+#| max-lines: 10
+posicoes = [0.0, 0.25, 0.5, 0.75, 1.0]
+print(posicoes[1:4])
+print(posicoes[:3])
+print(posicoes[::2])
+print(posicoes[::-1])
+```
+
+**Experimente:** quais itens aparecem em `posicoes[2:4]`?
+
+## Listas podem mudar
+
+Uma lista é **mutável**: podemos substituir itens, acrescentar com `append` e remover o último com `pop`. Essas operações modificam a própria lista.
+
+```{pyodide}
+#| autorun: true
+#| min-lines: 4
+#| max-lines: 10
+medicoes = [20.0, 21.0, 19.5]
+medicoes[1] = 21.2
+medicoes.append(20.4)
+print(medicoes)
+ultima_medicao = medicoes.pop()
+print(ultima_medicao, medicoes)
+```
+
+**Experimente:** acompanhe quando o número de itens muda.
+
+## Atribuir não cria uma cópia
+
+`outro_nome = valores` associa dois nomes à mesma lista. Uma alteração feita por um deles aparece ao consultar o outro.
+
+```{pyodide}
+#| autorun: true
+#| min-lines: 4
+#| max-lines: 10
+valores = [1.0, 2.0, 3.0]
+outro_nome = valores
+outro_nome[0] = 99.0
+print(valores)
+print(outro_nome is valores)
+```
+
+**Experimente:** altere um item usando `valores` e consulte `outro_nome`.
+
+## Copiar uma lista
+
+`copy` cria outra lista. Para uma lista de números, podemos alterar a cópia preservando a original. A cópia é superficial: objetos internos mutáveis continuam compartilhados.
+
+```{pyodide}
+#| autorun: true
+#| min-lines: 4
+#| max-lines: 10
+valores = [1.0, 2.0, 3.0]
+copia = valores.copy()
+copia[0] = 99.0
+print("Original:", valores)
+print("Cópia:", copia)
+```
+
+**Experimente:** faça outra alteração na cópia e confira a original.
+
+::: {.notes}
+No quadro, dois nomes apontam para a mesma caixa no slide anterior; aqui apontam para duas caixas. A ressalva sobre cópia superficial pode ser aprofundada no notebook.
+:::
+
+## Tuplas: agrupar valores
+
+Uma tupla é uma sequência cujos itens não podem ser substituídos depois da criação. O desempacotamento associa cada item a um nome.
+
+```{pyodide}
+#| autorun: true
+#| min-lines: 4
+#| max-lines: 10
+ponto = (0.25, 0.75)
+coordenada_x, coordenada_y = ponto
+print(ponto)
+print(f"x = {coordenada_x}; y = {coordenada_y}")
+```
+
+**Experimente:** altere as coordenadas na criação da tupla.
+
+::: {.notes}
+A imutabilidade refere-se à sequência. Uma tupla pode conter objetos mutáveis; este exemplo usa somente números.
+:::
+
+## Dicionários: chaves e valores
+
+Um dicionário associa uma chave a um valor. `dicionario[chave]` consulta uma chave existente; `get` permite definir um resultado para uma chave ausente.
+
+```{pyodide}
+#| autorun: true
+#| min-lines: 4
+#| max-lines: 10
+material = {"nome": "material A", "condutividade": 2.5}
+print(material["nome"])
+material["condutividade"] = 3.0
+print(material["condutividade"])
+print(material.get("densidade", "não informada"))
+```
+
+**Experimente:** acrescente a chave `"temperatura"` e consulte seu valor.
+
+## Conjuntos: itens distintos
+
+Um conjunto (`set`) guarda itens distintos e permite testar pertencimento com `in`. Ele não é acessado por índices; não dependa da ordem em que os itens aparecem.
+
+```{pyodide}
+#| autorun: true
+#| min-lines: 4
+#| max-lines: 10
+regioes = {"interior", "fronteira", "interior"}
+print(sorted(regioes))
+print(len(regioes))
+print("fronteira" in regioes)
+print("exterior" in regioes)
+```
+
+**Experimente:** acrescente uma região repetida e depois uma nova.
+
+::: {.notes}
+`sorted` cria uma lista ordenada para a apresentação. Um conjunto vazio é criado com `set()`; `{}` cria um dicionário vazio.
+:::
+
+## Ponto flutuante tem precisão finita
+
+Um `float` aproxima números reais com precisão finita. A soma pode ficar muito próxima do valor matemático esperado sem ser exatamente igual a ele.
+
+```{pyodide}
+#| autorun: true
+#| min-lines: 4
+#| max-lines: 10
+soma = 0.1 + 0.2
+print(soma)
+print(soma == 0.3)
+print(f"Uma casa decimal: {soma:.1f}")
+```
+
+**Observe:** a formatação muda a apresentação, não a precisão do cálculo.
+
+## Continuar estudando
+
+Retome os exemplos no [notebook suplementar](suplementos/notebooks/01-primeiros-passos.ipynb) e faça os exercícios de aplicação.
+
+Você deve conseguir dar nomes aos dados, comparar valores, consultar coleções e explicar a diferença entre atribuição e cópia.
+
+### Referências
+
+- [Python: introdução à linguagem](https://docs.python.org/pt-br/3/tutorial/introduction.html)
+- [Python: estruturas de dados](https://docs.python.org/pt-br/3/tutorial/datastructures.html)
+- [Python: ponto flutuante](https://docs.python.org/pt-br/3/tutorial/floatingpoint.html)
+

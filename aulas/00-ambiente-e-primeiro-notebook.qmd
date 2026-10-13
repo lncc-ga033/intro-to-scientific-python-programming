@@ -1,0 +1,152 @@
+---
+title: "00 -- Ambiente e primeiro notebook"
+subtitle: "GA033 · Programação científica com Python"
+---
+
+## O ambiente de trabalho
+
+Um **ambiente** reúne o Python e as bibliotecas usadas em um projeto. O Pixi instala e registra essas dependências.
+
+| Ferramenta | Papel nesta aula |
+| --- | --- |
+| Python | Executar os cálculos |
+| Pixi | Preparar o ambiente do projeto |
+| JupyterLab | Editar e executar os notebooks |
+| Editor de texto | Editar programas e arquivos do projeto |
+
+::: {.notes}
+Mostre a pasta do projeto no editor e localize os notebooks. Comece pelo resultado de um cálculo, antes de detalhar os arquivos do ambiente.
+:::
+
+## Um cálculo em Python
+
+Uma **expressão** combina valores e operações. Python avalia a expressão e produz um resultado.
+
+```{pyodide}
+comprimento = 2.0
+numero_elementos = 8
+tamanho_elemento = comprimento / numero_elementos
+print(tamanho_elemento)
+```
+
+Experimente trocar `8` por `16`. O que deve acontecer com o tamanho do elemento?
+
+## O terminal e a pasta do projeto
+
+O **terminal** recebe comandos para executar programas. A pasta atual determina onde esses programas procuram os arquivos.
+
+```sh
+cd caminho/da/pasta/do/curso
+pixi --version
+```
+
+Use aspas se o caminho tiver espaços. No Windows, você pode usar o PowerShell.
+
+::: {.notes}
+Peça que identifiquem a pasta que contém pixi.toml. Demonstre cd em uma pasta real da máquina; o caminho deste slide é um exemplo e deve ser substituído.
+:::
+
+## Preparar o ambiente com Pixi
+
+`pixi install --locked` instala as versões registradas pelo projeto. Na primeira vez, é necessário baixar o Python e as bibliotecas.
+
+```sh
+pixi install --locked
+pixi run lab
+```
+
+O segundo comando abre o JupyterLab no navegador. Mantenha o terminal aberto enquanto estiver usando o Jupyter.
+
+## Os arquivos do ambiente
+
+O **manifesto** descreve o que o projeto precisa. O **arquivo de resolução** registra as versões resolvidas para as plataformas configuradas.
+
+| Arquivo ou pasta | Conteúdo |
+| --- | --- |
+| `pixi.toml` | Dependências e tarefas |
+| `pixi.lock` | Versões e artefatos resolvidos |
+| `.pixi/` | Ambiente instalado nesta máquina |
+
+Mostre esses três itens na pasta do curso.
+
+## Um notebook
+
+Um **notebook** é um documento com células de texto e de código. As células de texto explicam o problema; as de código executam os cálculos.
+
+Abra `notebooks/00-ambiente-e-primeiro-notebook.ipynb` no JupyterLab.
+
+- Clique em uma célula de código.
+- Pressione **Shift+Enter** para executá-la.
+- Observe a saída logo abaixo da célula.
+
+## O kernel
+
+O **kernel** é o processo Python que executa as células do notebook. Ele guarda variáveis e funções enquanto a sessão está ativa.
+
+```{pyodide}
+comprimento = 1.0
+numero_elementos = 4
+print(comprimento / numero_elementos)
+```
+
+No Jupyter, uma célula posterior pode usar as variáveis criadas antes.
+
+::: {.notes}
+No notebook, separe as atribuições e o print em duas células. Execute o print antes e depois de alterar o número de elementos para tornar o estado visível.
+:::
+
+## Ordem de execução
+
+O resultado depende do **estado atual** do kernel. Alterar uma célula de código exige executá-la novamente para atualizar as variáveis.
+
+```{pyodide}
+numero_elementos = 4
+primeiro_tamanho = 1.0 / numero_elementos
+numero_elementos = 8
+print(primeiro_tamanho)
+print(1.0 / numero_elementos)
+```
+
+A variável `primeiro_tamanho` guarda o valor calculado na atribuição.
+
+## Reiniciar e executar tudo
+
+Reiniciar o kernel apaga seu estado. **Restart Kernel and Run All** executa o notebook inteiro, na ordem das células.
+
+1. Salve o notebook.
+2. Use **Kernel → Restart Kernel and Run All Cells**.
+3. Confira se o documento termina sem erros.
+
+Faça essa verificação antes de entregar ou compartilhar um notebook.
+
+## Código nesta apresentação
+
+Os exemplos dos slides são editáveis. O botão **Executar** roda o Python no navegador; **Restaurar código** recupera o exemplo inicial.
+
+```{pyodide}
+mensagem = "Olá, GA033!"
+print(mensagem)
+print(2 ** 3)
+```
+
+Altere a mensagem e execute. Os comandos de terminal são demonstrados no ambiente local.
+
+## Um projeto pequeno
+
+Uma **tarefa** do Pixi dá um nome a um comando do projeto. Por exemplo, `lab` inicia o JupyterLab deste curso.
+
+```sh
+pixi run lab
+pixi run testar
+pixi run aulas-preview
+```
+
+O ambiente deste repositório também instala `malhalib`, o pequeno pacote que usaremos na aula de organização de código.
+
+## Prática e referências
+
+O [caderno 00](suplementos/notebooks/00-ambiente-e-primeiro-notebook.ipynb) contém os passos completos e exercícios para praticar.
+
+- [Guia do ambiente deste curso](suplementos/docs/ambiente-pixi.md)
+- [Documentação do Pixi](https://pixi.prefix.dev/latest/)
+- [Documentação do JupyterLab](https://jupyterlab.readthedocs.io/en/stable/)
