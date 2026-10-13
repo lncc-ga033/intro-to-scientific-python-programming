@@ -185,7 +185,7 @@ print(calcular_comprimento.__doc__)
 
 ## Anotações de tipo ajudam a leitura
 
-`inicio: float` indica um tipo esperado e `-> float`, o tipo do retorno. Essas anotações documentam a intenção; elas não convertem nem validam os dados automaticamente.
+`inicio: float` indica um tipo esperado e `-> float`, o tipo do retorno. As anotações ajudam a leitura e permitem que o editor e ferramentas de checagem identifiquem incompatibilidades.
 
 ```{pyodide}
 #| autorun: true
@@ -200,15 +200,69 @@ print(calcular_comprimento(0.0, 1.0))
 
 **Observe:** o cálculo é o mesmo da versão anterior; a intenção está mais explícita.
 
-## Validar os dados recebidos
+## Tipos básicos nas assinaturas {.output-columns .code-wide}
 
-`raise ValueError` rejeita uma entrada incompatível com o cálculo. Aqui adotamos a convenção de que um intervalo válido deve ter `fim > inicio`.
+`float`, `int`, `str` e `bool` indicam os tipos esperados. `-> None` informa que a função devolve `None`, como ocorre em uma ação que apenas apresenta uma mensagem.
 
 ```{pyodide}
 #| autorun: true
 #| min-lines: 4
 #| max-lines: 10
-def comprimento_positivo(inicio, fim):
+def descrever_medicao(nome: str, disponivel: bool) -> str:
+    return f"{nome}: disponível = {disponivel}"
+
+def apresentar_repeticoes(quantidade: int) -> None:
+    print(f"Repetições: {quantidade}")
+
+print(descrever_medicao("Sensor A", True))
+apresentar_repeticoes(3)
+```
+
+## O tipo dos itens de uma coleção
+
+`list[float]` descreve uma lista cujos itens são esperados como números de ponto flutuante. A anotação do retorno também descreve a lista produzida.
+
+```{pyodide}
+#| autorun: true
+#| min-lines: 4
+#| max-lines: 10
+def elevar_ao_quadrado(valores: list[float]) -> list[float]:
+    return [valor**2 for valor in valores]
+
+print(elevar_ao_quadrado([0.0, 0.5, 1.0]))
+```
+
+## Checar compatibilidades com mypy
+
+`mypy` analisa as partes anotadas sem executar o programa. Salve este exemplo estático em `arquivo.py` para conferir a chamada.
+
+```python
+def calcular_comprimento(inicio: float, fim: float) -> float:
+    return fim - inicio
+
+# Incompatível: o segundo argumento é um texto.
+comprimento = calcular_comprimento(0.0, "1.0")
+```
+
+```sh
+pixi run mypy arquivo.py
+```
+
+**Corrija:** troque `"1.0"` por `1.0` e confira novamente.
+
+::: {.notes}
+Este trecho é intencionalmente estático: o aluno deve executar o verificador de tipos, não o arquivo Python com a chamada incompatível. As anotações não são impostas pelo Python durante a execução, e a checagem de tipos não demonstra correção numérica. Ela complementa a validação de entradas e as verificações de resultados das próximas seções.
+:::
+
+## Validar os dados recebidos
+
+As anotações não validam valores durante a execução nem garantem correção numérica. `raise ValueError` rejeita dados inadequados; aqui exigimos `fim > inicio`.
+
+```{pyodide}
+#| autorun: true
+#| min-lines: 4
+#| max-lines: 10
+def comprimento_positivo(inicio: float, fim: float) -> float:
     if fim <= inicio:
         raise ValueError("O fim deve ser maior que o início.")
     return fim - inicio
@@ -226,7 +280,7 @@ print(comprimento_positivo(0.0, 1.0))
 #| autorun: true
 #| min-lines: 4
 #| max-lines: 10
-def comprimento_positivo(inicio, fim):
+def comprimento_positivo(inicio: float, fim: float) -> float:
     if fim <= inicio:
         raise ValueError("O fim deve ser maior que o início.")
     return fim - inicio
@@ -238,15 +292,17 @@ except ValueError as erro:
 
 **Experimente:** use extremos válidos. O bloco `except` ainda será executado?
 
-## `None` como argumento opcional {.output-columns}
+## `None` como argumento opcional {.output-columns .code-wide}
 
-Um padrão `None` pode indicar uma opção ausente. Neste exemplo, devolvemos outra lista; evitamos usar uma lista mutável como padrão compartilhado entre chamadas.
+`int | None` aceita um inteiro ou a ausência de uma opção. Devolvemos outra lista; o padrão `None` evita compartilhar uma lista mutável entre chamadas.
 
 ```{pyodide}
 #| autorun: true
 #| min-lines: 4
 #| max-lines: 10
-def selecionar_primeiros(valores, quantidade=None):
+def selecionar_primeiros(
+    valores: list[float], quantidade: int | None = None
+) -> list[float]:
     if quantidade is None:
         return valores.copy()
     return valores[:quantidade]
@@ -288,7 +344,7 @@ Para valores finitos, a condição é abs(a-b) <= max(rel_tol * max(abs(a), abs(
 #| min-lines: 4
 #| max-lines: 10
 import math
-def area_retangulo(largura, altura):
+def area_retangulo(largura: float, altura: float) -> float:
     return largura * altura
 
 area = area_retangulo(2.0, 3.0)
@@ -310,7 +366,7 @@ Uma função Python também representa uma regra matemática. Em $0 \leq x \leq 
 #| autorun: true
 #| min-lines: 4
 #| max-lines: 10
-def solucao_referencia(posicao):
+def solucao_referencia(posicao: float) -> float:
     return posicao * (1.0 - posicao)
 
 for posicao in [0.0, 0.5, 1.0]:
@@ -323,17 +379,22 @@ for posicao in [0.0, 0.5, 1.0]:
 Esta é uma avaliação de uma expressão fornecida, não a solução computacional de uma equação. A expressão também é solução de referência para Poisson com fonte 2 e condições homogêneas nos extremos.
 :::
 
-## Uma função pode receber outra função
+## Uma função pode receber outra função {.output-columns .code-wide}
 
-Passamos a função pelo nome, sem parênteses, quando queremos usá-la em outra operação. Assim, separamos a regra matemática dos pontos de avaliação.
+`Callable[[float], float]` descreve uma função de `float` para `float`.
 
 ```{pyodide}
 #| autorun: true
 #| min-lines: 4
 #| max-lines: 10
-def solucao_referencia(posicao):
+from collections.abc import Callable
+
+def solucao_referencia(posicao: float) -> float:
     return posicao * (1.0 - posicao)
-def avaliar_em_pontos(funcao, pontos):
+
+def avaliar_em_pontos(
+    funcao: Callable[[float], float], pontos: list[float]
+) -> list[float]:
     return [funcao(ponto) for ponto in pontos]
 
 pontos = [0.0, 0.25, 0.5, 0.75, 1.0]
@@ -342,7 +403,7 @@ print(avaliar_em_pontos(solucao_referencia, pontos))
 
 **Observe:** `solucao_referencia` passa a regra; `solucao_referencia(0.5)` calcula um valor.
 
-## Separar cálculo e apresentação {.output-columns}
+## Separar cálculo e apresentação {.output-columns .code-wide}
 
 Uma função pequena tem uma responsabilidade clara. Aqui, ela calcula erros absolutos; a escolha de como apresentar os resultados fica fora do cálculo.
 
@@ -350,7 +411,9 @@ Uma função pequena tem uma responsabilidade clara. Aqui, ela calcula erros abs
 #| autorun: true
 #| min-lines: 4
 #| max-lines: 10
-def erros_absolutos(valores, referencias):
+def erros_absolutos(
+    valores: list[float], referencias: list[float]
+) -> list[float]:
     pares = zip(valores, referencias, strict=True)
     return [abs(valor - referencia) for valor, referencia in pares]
 
@@ -373,9 +436,13 @@ No [notebook suplementar](suplementos/notebooks/03-funcoes.ipynb), pratique fun�
 
 Para cada função, identifique suas entradas, seu retorno e suas hipóteses. Essa organização permitirá reutilizar o cálculo em outros cadernos e módulos.
 
-### Referências
+O [próximo notebook](suplementos/notebooks/04-classes-basicas.ipynb) apresenta os fundamentos de classes.
+
+## Referências
 
 - [Python: definição de funções](https://docs.python.org/pt-br/3/tutorial/controlflow.html#defining-functions)
 - [Python: erros e exceções](https://docs.python.org/pt-br/3/tutorial/errors.html)
 - [Python: `math.isclose`](https://docs.python.org/pt-br/3/library/math.html#math.isclose)
+- [Python: anotações de tipos](https://docs.python.org/pt-br/3/library/typing.html)
+- [Mypy: primeiros passos](https://mypy.readthedocs.io/en/stable/getting_started.html)
 

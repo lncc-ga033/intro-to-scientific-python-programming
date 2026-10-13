@@ -1,5 +1,5 @@
 ---
-title: "06 - Cálculo científico com SciPy"
+title: "07 - Cálculo científico com SciPy"
 subtitle: "Sistemas lineares, esparsidade e quadratura"
 format:
   live-revealjs:
@@ -162,7 +162,7 @@ Uma quadratura combina avaliações do integrando para aproximar a integral. `qu
 
 ## Quadratura: aproximar uma integral {.output-columns}
 
-`quad` integra uma função escalar em um intervalo. Ela devolve a aproximação da integral e uma **estimativa** do erro absoluto.
+`quad` aproxima uma integral definida. O integrando recebe `x: float` e devolve `float`; a rotina retorna a aproximação e uma **estimativa** do erro absoluto.
 
 Exemplo: $I=\int_0^1 x^2\,dx=1/3$.
 
@@ -170,7 +170,7 @@ Exemplo: $I=\int_0^1 x^2\,dx=1/3$.
 from scipy.integrate import quad
 
 
-def integrando(x):
+def integrando(x: float) -> float:
     return x**2
 
 integral, erro_estimado = quad(integrando, 0.0, 1.0)
@@ -186,7 +186,7 @@ Quando a resposta exata está disponível, podemos calcular o erro observado. A 
 from scipy.integrate import quad
 
 
-def integrando(x):
+def integrando(x: float) -> float:
     return x**2
 
 integral, estimativa = quad(integrando, 0.0, 1.0)
@@ -202,7 +202,7 @@ print("Estimativa devolvida:", estimativa)
 from scipy.integrate import quad
 
 
-def integrando(x, coeficiente):
+def integrando(x: float, coeficiente: float) -> float:
     return coeficiente * x * (1.0 - x)
 
 integral, estimativa = quad(integrando, 0.0, 1.0, args=(2.0,))
@@ -213,7 +213,7 @@ print("Integral:", integral, "| referência:", 1.0/3.0)
 
 Altere a matriz ou o integrando e escolha uma verificação adequada. O notebook inclui exercícios e quadraturas de produtos de funções locais.
 
-- [Notebook suplementar 06](suplementos/notebooks/06-calculo-cientifico-com-scipy.ipynb)
+- [Notebook suplementar 07](suplementos/notebooks/07-calculo-cientifico-com-scipy.ipynb)
 - [`scipy.linalg.solve`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.linalg.solve.html)
 - [Arrays esparsos](https://docs.scipy.org/doc/scipy/reference/sparse.html)
 - [`spsolve`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.linalg.spsolve.html)

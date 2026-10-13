@@ -4,7 +4,7 @@
 
 Programa de Pós-Graduação em Modelagem Computacional · LNCC
 
-As nove apresentações acompanham o percurso dos notebooks. Cada slide
+As dez apresentações acompanham o percurso dos notebooks. Cada slide
 introduz um conceito e um exemplo curto; os cadernos oferecem explicações
 adicionais e exercícios para estudo.
 
@@ -59,7 +59,7 @@ O menu no canto inferior esquerdo permite ir diretamente a um assunto.
 - `assets/lncc.scss` define cores, tipografia e espaço para código e resultados.
 - `assets/interacao.js` traduz os controles e preserva a navegação enquanto o editor tem foco.
 - `templates/lncc/` reúne o cabeçalho reutilizável da página inicial, com logo à esquerda do título; veja o [guia do template](templates/lncc/README.md).
-- `src/malhalib/`, na raiz do projeto, é a fonte única do pacote usado na aula 07.
+- `src/malhalib/`, na raiz do projeto, é a fonte única do pacote usado na aula 08.
 - `figuras/` reúne os esquemas em LaTeX/TikZ e as versões vetoriais usadas nos slides; veja o [guia das figuras](figuras/README.md).
 
 As células usam blocos `{pyodide}`. Mantenha cada exemplo independente:
@@ -67,6 +67,8 @@ declare seus dados e imports no mesmo slide. Use `.plot-slide` nos títulos
 dos slides que mostram editor e gráfico lado a lado. Use `.output-columns`
 para código e saídas textuais mais extensas. Prefira encurtar um
 exemplo ou dividir o assunto a reduzir a fonte ou sobrecarregar o slide.
+Para assinaturas anotadas mais longas, acrescente `.code-wide` a
+`.output-columns`; a coluna do código ganha mais largura.
 
 O corpo fica centralizado verticalmente em uma área delimitada. O cabeçalho
 e o rodapé ficam fora dessa área; quando uma edição aumenta demais o corpo,

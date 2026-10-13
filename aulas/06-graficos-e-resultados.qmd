@@ -1,5 +1,5 @@
 ---
-title: "05 - Gráficos e resultados"
+title: "06 - Gráficos e resultados"
 subtitle: "Dados, comparação e erro"
 format:
   live-revealjs:
@@ -177,7 +177,7 @@ Rótulos, legenda, escala e tamanho devem ajudar a interpretação. Antes de mud
 
 O notebook suplementar reúne figuras, exercícios e exportação para arquivo. Repita o exemplo para outra função e examine também o gráfico do erro.
 
-- [Notebook suplementar 05](suplementos/notebooks/05-graficos-e-resultados.ipynb)
+- [Notebook suplementar 06](suplementos/notebooks/06-graficos-e-resultados.ipynb)
 - [Matplotlib: guia inicial](https://matplotlib.org/stable/users/explain/quick_start.html)
 - [`numpy.interp`](https://numpy.org/doc/stable/reference/generated/numpy.interp.html)
 - [`numpy.trapezoid`](https://numpy.org/doc/stable/reference/generated/numpy.trapezoid.html)

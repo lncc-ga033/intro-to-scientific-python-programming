@@ -16,12 +16,12 @@ Os cadernos desta revisão foram redigidos para o novo percurso, com exemplos pe
 
 | Ideia presente no material anterior | Tratamento neste módulo |
 | --- | --- |
-| Arrays, formas, indexação e operações | Caderno 04, depois de listas, laços e funções. |
+| Arrays, formas, indexação e operações | Caderno 05, depois de listas, laços, funções e classes básicas. |
 | Cópias e visões | Exemplos que distinguem alteração dos dados de atribuição de um novo objeto. |
-| Álgebra linear densa e esparsa | Sistemas pequenos, solução direta e conferência do resíduo nos cadernos 04 e 06. |
+| Álgebra linear densa e esparsa | Sistemas pequenos, solução direta e conferência do resíduo nos cadernos 05 e 07. |
 | Gráficos | Unidade própria, com rótulos, legendas e interpretação. |
 | Quadratura | Estimativa do erro e comparação com integral conhecida. |
-| Raízes, ajustes, interpolação e EDOs | Complemento opcional no caderno 08. |
+| Raízes, ajustes, interpolação e EDOs | Complemento opcional no caderno 09. |
 | Preparação do ambiente | Pixi, com manifesto, arquivo de versões e tarefas usados pela própria aula. |
 
 ## Correções conceituais adotadas
@@ -33,6 +33,7 @@ Os cadernos desta revisão foram redigidos para o novo percurso, com exemplos pe
 - Erros de quadratura retornados pela biblioteca são estimativas, não conhecimento do erro exato.
 - Algoritmos de raízes e otimização são apresentados com suas condições e critérios; não há ranking universal de “melhor método”.
 - Dataclasses organizam dados e geram métodos auxiliares; a validação dos dados precisa ser programada.
+- Anotações de tipos documentam interfaces e permitem verificações estáticas; não impõem tipos na execução nem comprovam a correção científica dos resultados.
 
 ## Ilustrações fornecidas
 

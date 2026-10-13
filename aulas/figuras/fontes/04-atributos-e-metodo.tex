@@ -1,0 +1,25 @@
+\documentclass[tikz,border=12pt]{standalone}
+\input{estilo.tex}
+\begin{document}
+\begin{tikzpicture}
+  \node[box,text width=46mm,minimum height=35mm] (dados) at (0,0) {
+    \textbf{Instância: \texttt{trecho}}\\[10pt]
+    \texttt{inicio = 0.0}\\[5pt]
+    \texttt{fim = 2.0}
+  };
+  \node[box,text width=53mm,minimum height=35mm,right=18mm of dados] (metodo) {
+    \textbf{Método}\\[8pt]
+    \texttt{comprimento()}\\[7pt]
+    $h = \mathtt{fim}-\mathtt{inicio}$
+  };
+  \node[box,draw=teal,text width=27mm,minimum height=35mm,right=18mm of metodo] (resultado) {
+    \textbf{Retorno}\\[10pt]
+    $2{,}0$\\[6pt]
+    \texttt{float}
+  };
+  \verificarsetadireita{dados}{metodo}
+  \verificarsetadireita{metodo}{resultado}
+  \draw[flow] (dados.east) -- (metodo.west);
+  \draw[flow,draw=teal] (metodo.east) -- (resultado.west);
+\end{tikzpicture}
+\end{document}

@@ -51,6 +51,7 @@ $code-block-font-size: 0.76em;
 .reveal .cell-output-display canvas, .reveal .cell-output-display img { max-width: 100%; height: auto; object-fit: contain; }
 .reveal section:is(.plot-slide, .output-columns) .exercise-cell { width: 100%; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; align-items: center; }
 .reveal section.plot-slide .exercise-cell { grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); }
+.reveal section.code-wide .exercise-cell { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); }
 .reveal section:is(.plot-slide, .output-columns) .exercise-cell > .observablehq { min-width: 0; margin: 0; }
 .reveal section:is(.plot-slide, .output-columns) .exercise-cell > .observablehq:has(.exercise-editor) { grid-column: 1; grid-row: 1; }
 .reveal section:is(.plot-slide, .output-columns) .exercise-cell > .observablehq:has(.cell-output-container) { grid-column: 2; grid-row: 1; }

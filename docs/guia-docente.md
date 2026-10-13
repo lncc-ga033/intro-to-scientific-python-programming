@@ -18,12 +18,13 @@ Os comandos `pixi run testar` e `pixi run verificar` fazem parte da manutenção
 |---|---|---|
 | Primeiro contato | Caderno 00 e início do 01: células, nomes, tipos, operações, comparações e listas. | Alterar dados e prever como muda uma conta curta. |
 | Fundamentos, com retomadas nas aulas seguintes | Restante do 01 e caderno 02: coleções, cópias, indexação, condicionais, laços e comprehensions. | Percorrer medições, identificar extremos, acumular valores e controlar uma repetição. |
-| Primeiros cálculos organizados | Caderno 03: entradas, retorno, argumentos, escopo, documentação e verificações. | Separar uma expressão matemática de sua apresentação; conferir casos conhecidos. |
-| Primeira implementação de Poisson 1D | Cadernos 04 e 05, retomando laços e funções. | Representar nós e matrizes, verificar dimensões e comparar valores calculados com uma referência. |
+| Primeiros cálculos organizados | Caderno 03: entradas, retorno, argumentos, escopo, documentação, tipos e verificações. | Separar uma expressão matemática de sua apresentação; conferir casos conhecidos. |
+| Primeiros objetos | Caderno 04: classe, instância, atributos, `self`, `__init__` e métodos. | Reunir os dados de um intervalo e as operações sobre eles. |
+| Primeira implementação de Poisson 1D | Cadernos 05 e 06, retomando laços, funções e classes. | Representar nós e matrizes, verificar dimensões e comparar valores calculados com uma referência. |
 | Depois de um primeiro programa funcional | Introdução de módulos e fluxo mínimo de Git. | Reutilizar funções entre experimentos e registrar uma alteração que já foi verificada. |
-| Cálculos que exigem ferramentas adicionais | Caderno 06, conforme a necessidade. | Escolher quadratura, álgebra linear ou outra rotina a partir do problema; conferir suas hipóteses e saídas. |
-| Crescimento do código e dos dados | Caderno 07: organização, classes e dataclasses, após funções e módulos. | Agrupar informações que circulam juntas e explicitar condições de consistência. |
-| Aprofundamento | Caderno 08 e retomadas pontuais. | Tratar novas necessidades sem interromper a primeira experiência com uma apresentação extensa de recursos da linguagem. |
+| Cálculos que exigem ferramentas adicionais | Caderno 07, conforme a necessidade. | Escolher quadratura, álgebra linear ou outra rotina a partir do problema; conferir suas hipóteses e saídas. |
+| Crescimento do código e dos dados | Caderno 08: módulos e dataclasses, retomando as classes da aula 04. | Agrupar informações que circulam juntas e explicitar condições de consistência. |
+| Aprofundamento | Caderno 09 e retomadas pontuais. | Tratar novas necessidades sem interromper a primeira experiência com uma apresentação extensa de recursos da linguagem. |
 
 Essa ordem não exige concluir todo o Python antes de falar de elementos finitos. Exige distinguir o que o aluno já consegue usar sozinho do que está apenas acompanhando em um exemplo guiado. Quando um conceito novo aparecer no código do método, reservar tempo para explicá-lo e exercitá-lo.
 
@@ -67,7 +68,9 @@ Introduzir funções quando houver um cálculo que vale a pena nomear, reutiliza
 
 Organizar em módulos quando começar a haver reutilização entre cadernos ou experimentos. Um módulo de funções de cálculo e um notebook de experimentos podem ser suficientes no início. Não criar um arquivo por função apenas para aumentar a estrutura do projeto.
 
-Apresentar classes e dataclasses **depois de funções e módulos**. Uma dataclass pode ser útil quando dados de uma malha, como nós e conectividade, são passados juntos repetidamente. Ela organiza os campos, mas não garante automaticamente dimensões, unidades, conectividade válida nem imutabilidade dos objetos guardados. Essas condições precisam ser discutidas e, quando apropriado, verificadas.
+Apresentar classes básicas **logo após funções**, na aula 04. Usar um intervalo para distinguir classe, instância, atributo e método sem introduzir herança ou uma arquitetura extensa. Retomar módulos e dataclasses na aula 08, depois dos primeiros exemplos com arrays. Uma dataclass pode ser útil quando dados de uma malha, como nós e conectividade, são passados juntos repetidamente. Ela organiza os campos, mas não garante automaticamente dimensões, unidades, conectividade válida nem imutabilidade dos objetos guardados. Essas condições precisam ser discutidas e, quando apropriado, verificadas.
+
+Depois da introdução na aula 03, manter anotações nas entradas e nos retornos das funções e dos métodos. Elas são uma boa prática de legibilidade e permitem ao editor ou ao mypy detectar incompatibilidades de tipos antes da execução. Usar `pixi run mypy arquivo.py` na demonstração e `pixi run tipos` para o pacote `malhalib`. Essa camada adicional não converte os dados, não valida valores automaticamente e não comprova unidades, dimensões, algoritmos ou resultados científicos.
 
 Métodos devem aparecer quando houver operações que se beneficiem dessa organização. Uma classe que apenas envolve todas as funções em um único objeto não é, por isso, um código mais claro.
 
@@ -202,7 +205,7 @@ As duas construções em kelvin realizam as mesmas operações na mesma ordem. A
 import math
 
 
-def atualizar_temperatura(temperatura, variacao):
+def atualizar_temperatura(temperatura: float, variacao: float) -> float:
     """Retorna a temperatura após somar a variação informada."""
     return temperatura + variacao
 
@@ -221,7 +224,7 @@ A função devolve o resultado para que ele possa ser usado em outro cálculo. A
 import math
 
 
-def calcular_fluxo(condutividade, gradiente):
+def calcular_fluxo(condutividade: float, gradiente: float) -> float:
     """Retorna -k * gradiente para escalares finitos, com k positivo."""
     if condutividade <= 0.0:
         raise ValueError("A condutividade deve ser positiva.")
@@ -246,7 +249,7 @@ O sinal é parte do modelo: para condutividade positiva, o fluxo tem sentido opo
 import math
 
 
-def calcular_media(valores):
+def calcular_media(valores: list[float]) -> float:
     """Retorna a média aritmética de uma sequência não vazia."""
     if len(valores) == 0:
         raise ValueError("A sequência de valores não pode estar vazia.")

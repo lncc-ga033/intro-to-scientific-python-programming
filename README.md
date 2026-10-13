@@ -26,7 +26,7 @@ pixi install --locked
 pixi run aulas-preview
 ```
 
-Abra o endereço informado no terminal. O índice reúne as nove apresentações;
+Abra o endereço informado no terminal. O índice reúne as dez apresentações;
 as setas navegam pelos slides. **Executar** avalia o código do editor e
 **Restaurar código** recupera o exemplo original.
 
@@ -84,13 +84,21 @@ Os números indicam a ordem de leitura, **não uma correspondência de um cadern
 | [01 - Primeiros passos](notebooks/01-primeiros-passos.ipynb) | Tipos, operadores, listas, tuplas, dicionários e indexação | Fundamentos de Python |
 | [02 - Controle de fluxo](notebooks/02-controle-de-fluxo.ipynb) | Condicionais, laços, `range`, `enumerate`, `zip` e comprehensions | Fundamentos de Python |
 | [03 - Funções](notebooks/03-funcoes.ipynb) | Entradas, retorno, escopo, legibilidade e responsabilidades | Fundamentos; retomar durante implementação |
-| [04 - Arrays com NumPy](notebooks/04-arrays-com-numpy.ipynb) | Dimensões, indexação, operações, cópias e sistemas lineares | Início das atividades numéricas |
-| [05 - Gráficos e resultados](notebooks/05-graficos-e-resultados.ipynb) | Visualização, rótulos, comparação e interpretação de erros | Junto das primeiras aplicações |
-| [06 - Cálculo científico com SciPy](notebooks/06-calculo-cientifico-com-scipy.ipynb) | Sistemas esparsos e integração numérica | Conforme a necessidade no MEF |
-| [07 - Organização e dataclasses](notebooks/07-organizacao-e-dataclasses.ipynb) | Módulos, classes e representação de uma malha | Depois de trabalhar com funções e arrays |
-| [08 - Tópicos complementares](notebooks/08-topicos-complementares.ipynb) | Raízes, ajuste de curvas, interpolação e EDOs | Consulta e aprofundamento opcional |
+| [04 - Classes básicas](notebooks/04-classes-basicas.ipynb) | Instâncias, atributos, métodos, self e inicialização | Depois de funções e anotações de tipos |
+| [05 - Arrays com NumPy](notebooks/05-arrays-com-numpy.ipynb) | Dimensões, indexação, operações, cópias e sistemas lineares | Início das atividades numéricas |
+| [06 - Gráficos e resultados](notebooks/06-graficos-e-resultados.ipynb) | Visualização, rótulos, comparação e interpretação de erros | Junto das primeiras aplicações |
+| [07 - Cálculo científico com SciPy](notebooks/07-calculo-cientifico-com-scipy.ipynb) | Sistemas esparsos e integração numérica | Conforme a necessidade no MEF |
+| [08 - Organização e dataclasses](notebooks/08-organizacao-e-dataclasses.ipynb) | Módulos, classes e representação de uma malha | Depois de trabalhar com funções e arrays |
+| [09 - Tópicos complementares](notebooks/09-topicos-complementares.ipynb) | Raízes, ajuste de curvas, interpolação e EDOs | Consulta e aprofundamento opcional |
 
 Boas práticas aparecem nos próprios exemplos: nomes com significado, funções com objetivo claro, separação entre cálculo e apresentação, verificação de resultados e cuidado com o estado do notebook. O [guia docente](docs/guia-docente.md) sugere como alternar explicações, programação ao vivo e pequenas atividades. O [guia de Git e GitHub](docs/git-e-github.md) entra antes da primeira entrega de código.
+
+As anotações de tipos são introduzidas no caderno 03 e mantidas nas interfaces
+das funções e dos métodos seguintes. Elas melhoram a leitura e dão uma camada
+adicional de verificação estática. O ambiente inclui o mypy: `pixi run tipos`
+verifica o pacote `malhalib`, e `pixi run mypy arquivo.py` verifica um arquivo
+Python. A checagem de tipos complementa a validação dos dados e a análise dos
+resultados; não garante, por si só, a correção de um cálculo científico.
 
 ## O ambiente também faz parte da aula
 

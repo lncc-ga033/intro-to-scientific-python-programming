@@ -1,0 +1,27 @@
+\documentclass[tikz,border=12pt]{standalone}
+\input{estilo.tex}
+\begin{document}
+\begin{tikzpicture}
+  \node[box,text width=55mm,minimum height=38mm] (modelo) at (0,0) {
+    \textbf{Classe: \texttt{Intervalo}}\\[9pt]
+    \texttt{inicio: float}\\[3pt]
+    \texttt{fim: float}\\[9pt]
+    \textcolor{muted}{Tipos esperados}
+  };
+  \node[box,text width=57mm,minimum height=29mm] (curto) at (9,2.0) {
+    \textbf{Instância: \texttt{curto}}\\[9pt]
+    \texttt{inicio = 0.0}\\[3pt]
+    \texttt{fim = 1.0}
+  };
+  \node[box,draw=teal,text width=57mm,minimum height=29mm] (longo) at (9,-2.0) {
+    \textbf{Instância: \texttt{longo}}\\[9pt]
+    \texttt{inicio = 0.0}\\[3pt]
+    \texttt{fim = 3.0}
+  };
+  \coordinate (criacao) at (4.7,0);
+  \draw[draw=lnccblue,line width=1pt] (modelo.east) -- (criacao);
+  \fill[lnccblue] (criacao) circle (1.5pt);
+  \draw[flow] (criacao) |- (curto.west);
+  \draw[flow,draw=teal] (criacao) |- (longo.west);
+\end{tikzpicture}
+\end{document}

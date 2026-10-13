@@ -1,6 +1,6 @@
 ---
-title: "07 - Organização e dataclasses"
-subtitle: "Funções, módulos e objetos em uma malha 1D"
+title: "08 - Organização e dataclasses"
+subtitle: "Módulos, dataclasses e uma malha 1D"
 format:
   live-revealjs:
     pyodide:
@@ -41,13 +41,13 @@ O mesmo cálculo pode ser aplicado a todas as linhas do array de conectividade.
 
 ## Uma função representa uma operação {.output-columns}
 
-Uma função recebe os dados necessários e devolve um resultado. Calcular comprimentos é uma responsabilidade pequena e bem definida.
+Retomando funções com tipos: calcular comprimentos é uma responsabilidade pequena e bem definida. A anotação `np.ndarray` indica um array; não verifica seu formato nem a validade dos índices.
 
 ```{pyodide}
 import numpy as np
 
 
-def comprimentos(coordenadas, conectividade):
+def comprimentos(coordenadas: np.ndarray, conectividade: np.ndarray) -> np.ndarray:
     return coordenadas[conectividade[:, 1]] - coordenadas[conectividade[:, 0]]
 
 x = np.array([0.0, 0.3, 1.0])
@@ -68,33 +68,16 @@ elementos = np.array([[0, 1], [1, 2]])
 print(calcular_comprimentos(x, elementos))
 ```
 
-## Uma classe reúne dados e operações {.output-columns}
+## Recapitulação: dados e métodos {.output-columns}
 
-Uma classe define como construir um tipo de objeto. Uma instância guarda seus próprios atributos; um método é uma função associada à instância.
-
-```{pyodide}
-class Intervalo:
-    def __init__(self, inicio, fim):
-        self.inicio = inicio
-        self.fim = fim
-
-    def comprimento(self):
-        return self.fim - self.inicio
-
-intervalo = Intervalo(0.0, 2.0)
-print(intervalo.comprimento())
-```
-
-## `self` representa a instância {.output-columns}
-
-`self.inicio` consulta um atributo daquele objeto. Duas instâncias da mesma classe podem ter dados e resultados diferentes.
+Na aula 04, vimos que cada instância guarda seus atributos. Aqui, `__init__` recebe os limites e o método consulta esses dados por meio de `self`.
 
 ```{pyodide}
 class Intervalo:
-    def __init__(self, inicio, fim):
+    def __init__(self, inicio: float, fim: float) -> None:
         self.inicio, self.fim = inicio, fim
 
-    def comprimento(self):
+    def comprimento(self) -> float:
         return self.fim - self.inicio
 
 curto, longo = Intervalo(0.0, 1.0), Intervalo(0.0, 3.0)
@@ -124,9 +107,9 @@ intervalo = Intervalo(0.0, 2.0)
 print(intervalo)
 ```
 
-## Anotar tipos comunica a intenção {.output-columns}
+## Tipos e validação têm papéis diferentes {.output-columns}
 
-A anotação `inicio: float` documenta o tipo esperado. O Python não verifica automaticamente essa anotação ao construir a dataclass.
+`valor: float` declara o tipo esperado. A chamada abaixo é **intencionalmente incompatível**: um verificador como mypy a sinalizaria. O Python, sozinho, não verifica a anotação ao construir o objeto.
 
 ```{pyodide}
 from dataclasses import dataclass
@@ -136,7 +119,7 @@ from dataclasses import dataclass
 class Medida:
     valor: float
 
-medida = Medida("texto")
+medida = Medida("texto")  # Experimento: mypy sinalizaria esta chamada.
 print("Tipo recebido:", type(medida.valor).__name__)
 ```
 
@@ -153,7 +136,7 @@ class Intervalo:
     inicio: float
     fim: float
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         if self.fim <= self.inicio:
             raise ValueError("O fim deve ser maior que o início.")
 
@@ -257,7 +240,7 @@ Uma função basta para uma operação independente. A classe ajuda quando dados
 
 Altere o número de elementos, construa uma malha não uniforme e confira seus comprimentos. O pacote local é instalado em modo editável no ambiente Pixi.
 
-- [Notebook suplementar 07](suplementos/notebooks/07-organizacao-e-dataclasses.ipynb)
+- [Notebook suplementar 08](suplementos/notebooks/08-organizacao-e-dataclasses.ipynb)
 - [Módulos no Python](https://docs.python.org/3/tutorial/modules.html)
 - [`dataclasses`](https://docs.python.org/3/library/dataclasses.html)
 - [Código de `malhalib`](malhalib/malha.py)

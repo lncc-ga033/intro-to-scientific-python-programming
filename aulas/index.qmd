@@ -23,11 +23,12 @@ Este módulo da **GA033 - Método de Elementos Finitos: Implementação Computac
 | [01 - Primeiros passos](01-primeiros-passos.html) | Valores, operações e estruturas de dados |
 | [02 - Controle de fluxo](02-controle-de-fluxo.html) | Condicionais, laços e comprehensions |
 | [03 - Funções](03-funcoes.html) | Entradas, retorno e responsabilidades |
-| [04 - Arrays com NumPy](04-arrays-com-numpy.html) | Arrays, operações e sistemas lineares |
-| [05 - Gráficos e resultados](05-graficos-e-resultados.html) | Figuras, interpolação e erro |
-| [06 - Cálculo científico com SciPy](06-calculo-cientifico-com-scipy.html) | Sistemas esparsos e quadratura |
-| [07 - Organização e dataclasses](07-organizacao-e-dataclasses.html) | Módulos, classes e malhalib |
-| [08 - Tópicos complementares](08-topicos-complementares.html) | Raízes, ajuste, interpolação e EDOs |
+| [04 - Classes básicas](04-classes-basicas.html) | Objetos, atributos, self e métodos |
+| [05 - Arrays com NumPy](05-arrays-com-numpy.html) | Arrays, operações e sistemas lineares |
+| [06 - Gráficos e resultados](06-graficos-e-resultados.html) | Figuras, interpolação e erro |
+| [07 - Cálculo científico com SciPy](07-calculo-cientifico-com-scipy.html) | Sistemas esparsos e quadratura |
+| [08 - Organização e dataclasses](08-organizacao-e-dataclasses.html) | Módulos, classes e malhalib |
+| [09 - Tópicos complementares](09-topicos-complementares.html) | Raízes, ajuste, interpolação e EDOs |
 
 ## Como usar
 

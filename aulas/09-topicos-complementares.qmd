@@ -1,5 +1,5 @@
 ---
-title: "08 - Tópicos complementares"
+title: "09 - Tópicos complementares"
 subtitle: "Raízes, ajuste, interpolação e equações diferenciais"
 format:
   live-revealjs:
@@ -25,7 +25,7 @@ Se $f$ é contínua e tem sinais opostos nos extremos, existe uma raiz no interv
 ```{pyodide}
 from scipy.optimize import root_scalar
 
-def f(x):
+def f(x: float) -> float:
     return x**2 - 2.0
 
 resultado = root_scalar(
@@ -44,7 +44,7 @@ print("Raiz:", resultado.root)
 from math import sqrt
 from scipy.optimize import root_scalar
 
-def f(x):
+def f(x: float) -> float:
     return x**2 - 2.0
 
 resultado = root_scalar(f, bracket=(0, 2),
@@ -61,10 +61,10 @@ Newton usa a derivada e uma estimativa inicial; sua convergência depende do pro
 ```{pyodide}
 from scipy.optimize import root_scalar
 
-def f(x):
+def f(x: float) -> float:
     return x**2 - 2.0
 
-def derivada(x):
+def derivada(x: float) -> float:
     return 2.0 * x
 
 resultado = root_scalar(
@@ -93,7 +93,7 @@ print("Intercepto:", intercepto)
 import numpy as np
 from scipy.optimize import curve_fit
 
-def modelo(x, a, b):
+def modelo(x: np.ndarray, a: float, b: float) -> np.ndarray:
     return a * x + b
 x = np.arange(4.0)
 y = 2*x + 1
@@ -109,8 +109,9 @@ Medições sintéticas incluem pequenos desvios em relação a uma reta. O ajust
 
 ```{pyodide}
 import matplotlib.pyplot as plt
+from numpy import ndarray
 from scipy.optimize import curve_fit
-def modelo(x, a, b):
+def modelo(x: ndarray, a: float, b: float) -> ndarray:
     return a * x + b
 x = [0, 1, 2, 3, 4, 5]
 y = [0.36, 1.98, 3.32, 4.89, 6.51, 7.85]
@@ -189,7 +190,7 @@ plt.show()
 import numpy as np
 from scipy.integrate import solve_ivp
 
-def derivada(t, y):
+def derivada(t: float, y: np.ndarray) -> np.ndarray:
     return -2.0 * y
 
 solucao = solve_ivp(
@@ -209,7 +210,7 @@ A solução tem uma linha por componente do estado e uma coluna por tempo retorn
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.integrate import solve_ivp
-def f(t, y):
+def f(t: float, y: np.ndarray) -> np.ndarray:
     return -2.0 * y
 s = solve_ivp(f, (0, 2), [1], rtol=1e-8, atol=1e-10)
 fig, ax = plt.subplots(layout="constrained")
@@ -227,7 +228,7 @@ O integrador escolhe passos internos adaptativamente e avalia a resposta nos tem
 import numpy as np
 from scipy.integrate import solve_ivp
 
-def f(t, y):
+def f(t: float, y: np.ndarray) -> np.ndarray:
     return -2.0 * y
 tempos = np.linspace(0, 2, 41)
 saida = solve_ivp(f, (0, 2), [1], t_eval=tempos,
@@ -246,7 +247,7 @@ Edite `valor_inicial` e compare com $y(1)=y(0)e^{-2}$. O erro é medido em $t=1$
 import numpy as np
 from scipy.integrate import solve_ivp
 
-def derivada(t, y):
+def derivada(t: float, y: np.ndarray) -> np.ndarray:
     return -2.0 * y
 valor_inicial = 3.0
 solucao = solve_ivp(
@@ -262,7 +263,7 @@ print(f"Erro observado: {erro:.2e}")
 
 Os exemplos mostram verificações em casos conhecidos. As hipóteses do modelo e os critérios do algoritmo continuam essenciais em cada aplicação.
 
-- [Notebook suplementar 08](suplementos/notebooks/08-topicos-complementares.ipynb)
+- [Notebook suplementar 09](suplementos/notebooks/09-topicos-complementares.ipynb)
 - [`root_scalar`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.root_scalar.html)
 - [`curve_fit`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.curve_fit.html)
 - [`CubicSpline`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.interpolate.CubicSpline.html)
