@@ -1,6 +1,6 @@
 # Introdução à programação científica com Python
 
-**Um crash course que integra a disciplina GA033 -- Método de Elementos Finitos: Implementação Computacional, do LNCC.**
+**Um crash course que integra a disciplina GA033 - Método de Elementos Finitos: Implementação Computacional, do LNCC.**
 
 **Prof. Diego Volpatto**
 
@@ -71,15 +71,15 @@ Os números indicam a ordem de leitura, **não uma correspondência de um cadern
 
 | Caderno | O que vamos aprender | Quando usar |
 | --- | --- | --- |
-| [00 -- Ambiente e primeiro notebook](notebooks/00-ambiente-e-primeiro-notebook.ipynb) | Pixi, células, kernel, execução e estado | Preparação e primeiro contato |
-| [01 -- Primeiros passos](notebooks/01-primeiros-passos.ipynb) | Tipos, operadores, listas, tuplas, dicionários e indexação | Fundamentos de Python |
-| [02 -- Controle de fluxo](notebooks/02-controle-de-fluxo.ipynb) | Condicionais, laços, `range`, `enumerate`, `zip` e comprehensions | Fundamentos de Python |
-| [03 -- Funções](notebooks/03-funcoes.ipynb) | Entradas, retorno, escopo, legibilidade e responsabilidades | Fundamentos; retomar durante implementação |
-| [04 -- Arrays com NumPy](notebooks/04-arrays-com-numpy.ipynb) | Dimensões, indexação, operações, cópias e sistemas lineares | Início das atividades numéricas |
-| [05 -- Gráficos e resultados](notebooks/05-graficos-e-resultados.ipynb) | Visualização, rótulos, comparação e interpretação de erros | Junto das primeiras aplicações |
-| [06 -- Cálculo científico com SciPy](notebooks/06-calculo-cientifico-com-scipy.ipynb) | Sistemas esparsos e integração numérica | Conforme a necessidade no MEF |
-| [07 -- Organização e dataclasses](notebooks/07-organizacao-e-dataclasses.ipynb) | Módulos, classes e representação de uma malha | Depois de trabalhar com funções e arrays |
-| [08 -- Tópicos complementares](notebooks/08-topicos-complementares.ipynb) | Raízes, ajuste de curvas, interpolação e EDOs | Consulta e aprofundamento opcional |
+| [00 - Ambiente e primeiro notebook](notebooks/00-ambiente-e-primeiro-notebook.ipynb) | Pixi, células, kernel, execução e estado | Preparação e primeiro contato |
+| [01 - Primeiros passos](notebooks/01-primeiros-passos.ipynb) | Tipos, operadores, listas, tuplas, dicionários e indexação | Fundamentos de Python |
+| [02 - Controle de fluxo](notebooks/02-controle-de-fluxo.ipynb) | Condicionais, laços, `range`, `enumerate`, `zip` e comprehensions | Fundamentos de Python |
+| [03 - Funções](notebooks/03-funcoes.ipynb) | Entradas, retorno, escopo, legibilidade e responsabilidades | Fundamentos; retomar durante implementação |
+| [04 - Arrays com NumPy](notebooks/04-arrays-com-numpy.ipynb) | Dimensões, indexação, operações, cópias e sistemas lineares | Início das atividades numéricas |
+| [05 - Gráficos e resultados](notebooks/05-graficos-e-resultados.ipynb) | Visualização, rótulos, comparação e interpretação de erros | Junto das primeiras aplicações |
+| [06 - Cálculo científico com SciPy](notebooks/06-calculo-cientifico-com-scipy.ipynb) | Sistemas esparsos e integração numérica | Conforme a necessidade no MEF |
+| [07 - Organização e dataclasses](notebooks/07-organizacao-e-dataclasses.ipynb) | Módulos, classes e representação de uma malha | Depois de trabalhar com funções e arrays |
+| [08 - Tópicos complementares](notebooks/08-topicos-complementares.ipynb) | Raízes, ajuste de curvas, interpolação e EDOs | Consulta e aprofundamento opcional |
 
 Boas práticas aparecem nos próprios exemplos: nomes com significado, funções com objetivo claro, separação entre cálculo e apresentação, verificação de resultados e cuidado com o estado do notebook. O [guia docente](docs/guia-docente.md) sugere como alternar explicações, programação ao vivo e pequenas atividades. O [guia de Git e GitHub](docs/git-e-github.md) entra antes da primeira entrega de código.
 
@@ -140,7 +140,7 @@ O material autoral deste módulo é disponibilizado sob a licença **Creative Co
 
 Uma forma de citar:
 
-> VOLPATTO, Diego Tavares. *Introdução à programação científica com Python: módulo da disciplina GA033 -- Método de Elementos Finitos: Implementação Computacional*. LNCC, 2026. Disponível em: https://github.com/lncc-ga033/intro-to-scientific-python-programming. Licença CC BY 4.0.
+> VOLPATTO, Diego Tavares. *Introdução à programação científica com Python: módulo da disciplina GA033 - Método de Elementos Finitos: Implementação Computacional*. LNCC, 2026. Disponível em: https://github.com/lncc-ga033/intro-to-scientific-python-programming. Licença CC BY 4.0.
 
 Os dados de citação também estão em [CITATION.cff](CITATION.cff). Materiais de terceiros eventualmente referenciados ou presentes nas ilustrações conservam suas próprias atribuições e condições de uso.
 

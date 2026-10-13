@@ -1,13 +1,22 @@
 ---
-title: "07 -- Organização e dataclasses"
+title: "07 - Organização e dataclasses"
 subtitle: "Funções, módulos e objetos em uma malha 1D"
-resources: [malhalib]
 format:
   live-revealjs:
     pyodide:
-      resources: [malhalib]
+      resources:
+        # As crases preservam os sublinhados do caminho no Pandoc.
+        - "`malhalib/__init__.py`"
+        - malhalib/calculos.py
+        - malhalib/malha.py
       packages: [numpy]
 ---
+
+## Uma malha 1D e seus atributos {.diagram-slide}
+
+Os **nós** são pontos. Cada **elemento** liga dois nós. O índice do nó identifica uma posição no vetor; a coordenada indica sua localização no domínio.
+
+![](figuras/geradas/07-malha-e-atributos.svg){.diagrama fig-alt="Malha não uniforme com quatro nós e três elementos. Os arrays de coordenadas e conectividade identificam o elemento 1 entre os nós 1 e 2."}
 
 ## Coordenadas e conectividade
 
@@ -16,11 +25,19 @@ As coordenadas localizam os nós. Cada linha da conectividade contém os índice
 ```{pyodide}
 import numpy as np
 
-coordenadas = np.array([0.0, 0.25, 0.5, 0.75, 1.0])
-conectividade = np.array([[0, 1], [1, 2], [2, 3], [3, 4]])
+coordenadas = np.array([0.0, 0.2, 0.7, 1.0])
+conectividade = np.array([[0, 1], [1, 2], [2, 3]])
 print("Coordenadas:", coordenadas)
 print("Primeiro elemento:", conectividade[0])
 ```
+
+## O comprimento de um elemento {.diagram-slide}
+
+Uma linha da conectividade fornece os índices $i_e$ e $j_e$. Buscamos as coordenadas desses nós e calculamos $h_e=x_{j_e}-x_{i_e}$.
+
+![](figuras/geradas/07-comprimento-elemento.svg){.diagrama fig-alt="O elemento 1 liga os nós de coordenadas 0,2 e 0,7, com comprimento 0,5."}
+
+O mesmo cálculo pode ser aplicado a todas as linhas do array de conectividade.
 
 ## Uma função representa uma operação {.output-columns}
 
@@ -83,6 +100,12 @@ class Intervalo:
 curto, longo = Intervalo(0.0, 1.0), Intervalo(0.0, 3.0)
 print("Comprimentos:", curto.comprimento(), longo.comprimento())
 ```
+
+## Duas instâncias, dois estados {.diagram-slide}
+
+Cada instância guarda seus próprios valores de `inicio` e `fim`. O mesmo método consulta os atributos da instância recebida como `self`.
+
+![](figuras/geradas/07-instancias-e-atributos.svg){.diagrama fig-alt="Duas instâncias de Intervalo: curto vai de zero a um e longo vai de zero a três, com comprimentos um e três."}
 
 ## `dataclass`: declarar os campos {.output-columns}
 

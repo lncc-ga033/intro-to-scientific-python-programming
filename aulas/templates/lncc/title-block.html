@@ -1,0 +1,36 @@
+<header id="title-block-header" class="quarto-title-block default lncc-title-block">
+<div class="quarto-title$if(lncc-logo)$ lncc-title-with-logo$endif$">
+$if(lncc-logo)$
+<img class="lncc-title-logo" src="$lncc-logo$" alt="$if(lncc-logo-alt)$$lncc-logo-alt$$else$Laboratório Nacional de Computação Científica$endif$">
+$endif$
+<div class="lncc-title-text">
+$if(title)$
+<h1 class="title">$title$</h1>
+$endif$
+$if(subtitle)$
+<p class="subtitle lead">$subtitle$</p>
+$endif$
+$if(categories)$
+  $if(quarto-template-params.title-block-categories)$
+<div class="quarto-categories">
+  $for(categories)$
+  <div class="quarto-category">$categories$</div>
+  $endfor$
+</div>
+  $endif$
+$endif$
+</div>
+</div>
+
+$if(hide-description)$
+$elseif(description)$
+<div>
+  <div class="description">
+    $description$
+  </div>
+</div>
+$endif$
+
+$title-metadata.html()$
+
+</header>

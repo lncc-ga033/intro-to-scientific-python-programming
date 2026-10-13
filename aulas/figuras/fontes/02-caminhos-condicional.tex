@@ -1,0 +1,31 @@
+\documentclass[tikz,border=12pt]{standalone}
+\input{estilo.tex}
+\begin{document}
+\begin{tikzpicture}[
+  every node/.append style={font=\sffamily\fontsize{17}{21}\selectfont},
+  etapa/.style={draw=lnccblue,fill=lightblue,rounded corners=2mm,
+    line width=1pt,align=center,inner sep=9pt,minimum height=.95cm},
+  seta/.style={-{Stealth[length=3mm,width=2mm]},draw=lnccblue,line width=1.2pt}
+]
+\node[etapa] (entrada) {$T=120$};
+\node[diamond,aspect=1.8,draw=lnccblue,fill=white,line width=1.1pt,
+  inner sep=6pt,right=12mm of entrada] (decisao) {$T>100$?};
+\node[etapa,above right=10mm and 12mm of decisao] (aviso) {Exibir aviso};
+\node[etapa,draw=teal,fill=teal!6,right=58mm of decisao] (continua) {Continuar};
+\coordinate (encontro) at ($(continua.west)+(-7mm,0)$);
+\coordinate (falso) at ($(decisao.south)+(0,-10mm)$);
+\verificarsetadireita{entrada}{decisao}
+\verificarsetadireita{aviso}{encontro}
+\verificarsetadireita{encontro}{continua}
+\draw[seta] (entrada.east) -- (decisao.west);
+\draw[seta] (decisao.north) |- (aviso.west);
+\node[above=4pt,font=\sffamily\fontsize{15}{18}\selectfont]
+  at ($(decisao.north |- aviso.west)!0.5!(aviso.west)$) {True};
+\draw[seta] (aviso.east) -| (encontro);
+\draw[seta] (decisao.south) -- (falso) -| (encontro);
+\node[below=4pt,font=\sffamily\fontsize{15}{18}\selectfont]
+  at ($(falso)!0.45!(falso -| encontro)$) {False};
+\fill[lnccblue] (encontro) circle[radius=1.6pt];
+\draw[seta] (encontro) -- (continua.west);
+\end{tikzpicture}
+\end{document}

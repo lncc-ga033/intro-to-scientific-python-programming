@@ -1,5 +1,5 @@
 ---
-title: "06 -- Cálculo científico com SciPy"
+title: "06 - Cálculo científico com SciPy"
 subtitle: "Sistemas lineares, esparsidade e quadratura"
 format:
   live-revealjs:
@@ -85,6 +85,12 @@ ax.set(xlabel="Coluna", ylabel="Linha", title="Padrão das entradas não nulas")
 plt.show()
 ```
 
+## Como o CSR guarda os valores {.diagram-slide}
+
+Cada cor identifica uma linha da matriz. `data` guarda os valores, `indices` guarda as colunas e `indptr` delimita o trecho de cada linha.
+
+![](figuras/geradas/06-estrutura-csr.svg){.diagrama fig-alt="Matriz esparsa 3 por 4 e seus buffers CSR data, indices e indptr, com cores por linha"}
+
 ## CSR: valores, colunas e início de linhas {.output-columns}
 
 CSR (*Compressed Sparse Row*) agrupa as entradas por linha. `data` guarda valores, `indices` guarda colunas e `indptr` delimita os trechos de cada linha.
@@ -147,6 +153,12 @@ bytes_denso = n * n * np.dtype(float).itemsize
 print("CSR (buffers):", bytes_csr, "bytes")
 print("Denso (valores):", bytes_denso, "bytes")
 ```
+
+## Duas saídas de uma quadratura {.diagram-slide}
+
+Uma quadratura combina avaliações do integrando para aproximar a integral. `quad` retorna uma aproximação e uma estimativa de erro absoluto.
+
+![](figuras/geradas/06-quadratura.svg){.diagrama fig-alt="Curva x ao quadrado em zero a um com pontos ilustrativos e duas saídas distintas de quad: aproximação e estimativa de erro"}
 
 ## Quadratura: aproximar uma integral {.output-columns}
 

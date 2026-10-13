@@ -1,5 +1,5 @@
 ---
-title: "00 -- Ambiente e primeiro notebook"
+title: "00 - Ambiente e primeiro notebook"
 subtitle: "GA033 · Programação científica com Python"
 ---
 
@@ -78,6 +78,16 @@ Abra `notebooks/00-ambiente-e-primeiro-notebook.ipynb` no JupyterLab.
 - Clique em uma célula de código.
 - Pressione **Shift+Enter** para executá-la.
 - Observe a saída logo abaixo da célula.
+
+## Da célula ao resultado {.diagram-slide}
+
+No JupyterLab, o notebook envia o código ao kernel. O kernel usa o Python do ambiente Pixi e devolve a saída.
+
+![](figuras/geradas/00-notebook-kernel.svg){.diagrama fig-alt="O JupyterLab envia o código de uma célula ao kernel Python do ambiente Pixi local e recebe o resultado."}
+
+::: {.notes}
+Este esquema descreve os notebooks no ambiente local. Os exemplos interativos desta apresentação usam outro Python, no navegador, como será explicado no slide correspondente.
+:::
 
 ## O kernel
 

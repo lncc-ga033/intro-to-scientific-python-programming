@@ -1,0 +1,29 @@
+\documentclass[tikz,border=12pt]{standalone}
+\input{estilo.tex}
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm,
+  every node/.append style={font=\sffamily\fontsize{16}{19}\selectfont},
+  cell/.style={draw=muted!55,line width=.7pt,minimum width=1.6cm,minimum height=.8cm,inner sep=0pt}]
+  \path[use as bounding box] (0,0) rectangle (12.5,5.0);
+  \draw[flow] (3.4,4.45) -- (6.75,4.45);
+  \node at (5.05,4.8) {eixo 1: colunas};
+  \draw[flow] (1.25,3.65) -- (1.25,.95);
+  \node[rotate=90] at (.55,2.3) {eixo 0: linhas};
+  \node[text=muted] at (4.2,3.9) {$j=0$};
+  \node[text=muted] at (5.9,3.9) {$j=1$};
+  \node[text=muted] at (2.55,3.2) {$i=0$};
+  \node[text=muted] at (2.55,2.3) {$i=1$};
+  \node[text=muted] at (2.55,1.4) {$i=2$};
+  \node[cell,fill=lightblue] at (4.2,3.2) {18};
+  \node[cell,fill=lightblue] at (5.9,3.2) {20};
+  \node[cell,draw=lnccblue,fill=lnccblue,text=white] at (4.2,2.3) {19};
+  \node[cell,fill=lightblue] at (5.9,2.3) {22};
+  \node[cell,fill=lightblue] at (4.2,1.4) {20};
+  \node[cell,fill=lightblue] at (5.9,1.4) {21};
+  \node[heading] at (9.7,3.55) {\texttt{shape = (3, 2)}};
+  \node[text=muted] at (9.7,2.9) {3 linhas, 2 colunas};
+  \node[text=lnccblue] at (9.7,2.0) {\texttt{dados[1, 0] = 19}};
+  \node[text=muted] at (9.7,1.35) {linha 1, coluna 0};
+  \node[text=muted] at (6.35,.35) {Os índices começam em zero.};
+\end{tikzpicture}
+\end{document}

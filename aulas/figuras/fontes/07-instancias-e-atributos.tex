@@ -1,0 +1,18 @@
+\documentclass[tikz,border=12pt]{standalone}
+\input{estilo.tex}
+\begin{document}
+\begin{tikzpicture}
+  \node[heading,anchor=west] at (0,3.8) {\texttt{curto = Intervalo(0.0, 1.0)}};
+  \node[heading,anchor=west,text=teal] at (0,1.15) {\texttt{longo = Intervalo(0.0, 3.0)}};
+  \draw[lnccblue,line width=2pt] (0,2.8) -- (4,2.8);
+  \draw[teal,line width=2pt] (0,0.15) -- (12,0.15);
+  \foreach \p in {0,4} {\node[point] at (\p,2.8) {};}
+  \foreach \p in {0,12} {\node[point,draw=teal] at (\p,0.15) {};}
+  \node[label,below=13pt,anchor=north west] at (0,2.8) {\texttt{inicio = 0.0}};
+  \node[label,below=13pt,anchor=north west] at (4,2.8) {\texttt{fim = 1.0}};
+  \node[label,below=13pt,anchor=north west] at (0,0.15) {\texttt{inicio = 0.0}};
+  \node[label,below=13pt,anchor=north east] at (12,0.15) {\texttt{fim = 3.0}};
+  \node[anchor=west] at (6,2.8) {\texttt{curto.comprimento()} $=1{,}0$};
+  \node[anchor=west] at (6,-1.25) {\texttt{longo.comprimento()} $=3{,}0$};
+\end{tikzpicture}
+\end{document}

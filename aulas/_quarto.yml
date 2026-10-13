@@ -4,11 +4,10 @@ project:
   render:
     - "[0-9]*.qmd"
     - index.qmd
-  pre-render:
-    - ../scripts/preparar_aulas.py
+  post-render:
+    - python ../scripts/preparar_aulas.py
   resources:
     - assets/
-    - suplementos/
 
 filters:
   - assets/typografia.lua

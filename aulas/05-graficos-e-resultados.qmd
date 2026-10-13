@@ -1,5 +1,5 @@
 ---
-title: "05 -- Gráficos e resultados"
+title: "05 - Gráficos e resultados"
 subtitle: "Dados, comparação e erro"
 format:
   live-revealjs:

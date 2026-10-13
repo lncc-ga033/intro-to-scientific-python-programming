@@ -11,8 +11,6 @@ resultados/
 .vscode/
 aulas/_site/
 aulas/.quarto/
-aulas/malhalib/
-aulas/suplementos/
 src/*.egg-info/
 build/
 *.egg-info/

@@ -1,0 +1,29 @@
+\documentclass[tikz,border=12pt]{standalone}
+\input{estilo.tex}
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm,
+  every node/.append style={font=\sffamily\fontsize{16}{19}\selectfont}]
+  \path[use as bounding box] (0,0) rectangle (12.8,4.9);
+  \fill[lightblue] (.8,1.0) -- plot[domain=0:1,samples=80]
+    ({.8+4.5*\x},{1.0+2.5*\x*\x}) -- (5.3,1.0) -- cycle;
+  \draw[flow] (.8,1.0) -- (5.8,1.0);
+  \draw[flow] (.8,1.0) -- (.8,4.0);
+  \draw[lnccblue,line width=1.3pt] plot[domain=0:1,samples=80]
+    ({.8+4.5*\x},{1.0+2.5*\x*\x});
+  \foreach \t in {.18,.42,.67,.88} {
+    \fill[orange] ({.8+4.5*\t},{1.0+2.5*\t*\t}) circle[radius=1.5mm];
+  }
+  \node at (5.85,.62) {$x$};
+  \node at (.8,4.35) {$f(x)$};
+  \node[text=muted] at (.8,.65) {0};
+  \node[text=muted] at (5.3,.65) {1};
+  \node[heading] at (3.4,3.9) {$f(x)=x^2$};
+  \node[text=muted,font=\sffamily\fontsize{14}{17}\selectfont] at (3.05,-.15) {pontos apenas ilustrativos};
+  \node[heading] at (9.3,4.3) {\texttt{quad(f, 0, 1)}};
+  \node[box,minimum width=5.3cm,minimum height=.9cm] at (9.3,3.15)
+    {$Q\approx\displaystyle\int_0^1 f(x)\,dx$};
+  \node[box,draw=teal,fill=teal!7,minimum width=5.3cm,minimum height=.9cm] at (9.3,1.75)
+    {estimativa $\eta$};
+  \node[text=muted,align=center,text width=5.3cm,font=\sffamily\fontsize{14}{17}\selectfont] at (9.3,.55) {$\eta$ não é o erro\\exato observado.};
+\end{tikzpicture}
+\end{document}

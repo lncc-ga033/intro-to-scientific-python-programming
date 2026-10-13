@@ -1,0 +1,22 @@
+\documentclass[tikz,border=12pt]{standalone}
+\input{estilo.tex}
+\begin{document}
+\begin{tikzpicture}[
+  x=1cm,y=1cm,every node/.append style={font=\sffamily\fontsize{18}{22}\selectfont},
+  seta/.style={-{Latex[length=3mm,width=2mm]},draw=lnccblue,line width=1.2pt}
+]
+\path[use as bounding box] (-.15,-1.65) rectangle (12.65,1.8);
+\node[text=ink] at (6.8,1.3) {\texttt{posicoes}};
+\node[anchor=east,text=muted,font=\sffamily\fontsize{16}{20}\selectfont] at (1.9,.25) {Valor};
+\node[anchor=east,text=muted,font=\sffamily\fontsize{16}{20}\selectfont] at (1.9,-.75) {Índice};
+\foreach \valor/\indice/\x in {0.0/0/2.9,0.25/1/4.85,0.5/2/6.8,0.75/3/8.75,1.0/4/10.7} {
+  \draw[draw=lnccblue,line width=1pt,fill=lightblue] (\x-.925,-.2) rectangle (\x+.925,.7);
+  \node[text=ink] at (\x,.25) {\valor};
+  \node[text=lnccblue,font=\sffamily\fontsize{18}{22}\selectfont\bfseries] (indice\indice) at (\x,-.75) {\indice};
+}
+\draw[seta] (2.9,-1.5) -- (indice0.south);
+\node[anchor=east,text=ink,font=\sffamily\fontsize{16}{20}\selectfont] at (2.75,-1.4) {primeiro};
+\draw[seta] (10.7,-1.5) -- (indice4.south);
+\node[anchor=west,text=ink,font=\sffamily\fontsize{16}{20}\selectfont] at (10.85,-1.4) {último};
+\end{tikzpicture}
+\end{document}

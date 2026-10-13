@@ -1,6 +1,6 @@
--- Impede que a pontuação automática dos metadados troque "--" por outro sinal.
+-- Preserva o hífen simples na pontuação dos metadados.
 local function hifens(el)
-  el.text = el.text:gsub(utf8.char(0x2013), "--"):gsub(utf8.char(0x2014), "--")
+  el.text = el.text:gsub(utf8.char(0x2013), "-"):gsub(utf8.char(0x2014), "-")
   return el
 end
 

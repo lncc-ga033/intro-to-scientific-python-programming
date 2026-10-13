@@ -1,0 +1,28 @@
+\documentclass[tikz,border=12pt]{standalone}
+\input{estilo.tex}
+\begin{document}
+\begin{tikzpicture}[
+  x=1cm,y=1cm,every node/.append style={font=\sffamily\fontsize{17}{21}\selectfont},
+  entrada/.style={draw=lnccblue,fill=lightblue,rounded corners=2mm,line width=1pt,
+    align=center,minimum width=2.7cm,minimum height=1.3cm},
+  seta/.style={-{Latex[length=3mm,width=2mm]},draw=lnccblue,line width=1.2pt}
+]
+\path[use as bounding box] (-.1,-1.9) rectangle (12.7,1.9);
+\node[entrada] (largura) at (1.4,.9) {\texttt{largura}\\$2.0$};
+\node[entrada] (altura) at (1.4,-.9) {\texttt{altura}\\$3.0$};
+\node[draw=lnccblue,fill=white,rounded corners=3mm,line width=1pt,
+  minimum width=5.2cm,minimum height=4.2cm] (funcao) at (6.6,0) {};
+\node[text=lnccblue,font=\sffamily\fontsize{17}{21}\selectfont\bfseries] at (6.6,1.5) {\texttt{area\_retangulo}};
+\draw[draw=lnccblue,fill=lightblue,line width=1.1pt] (5.8,-1.0) rectangle (7.0,.8);
+\node[text=ink,font=\sffamily\fontsize{16}{20}\selectfont] at (6.4,-1.35) {$2.0$};
+\node[text=ink,font=\sffamily\fontsize{16}{20}\selectfont,anchor=east] at (5.65,-.1) {$3.0$};
+\node[text=lnccblue,font=\sffamily\fontsize{22}{26}\selectfont] at (6.4,-.1) {$6$};
+\node[entrada,draw=teal,fill=teal!6,minimum width=2.75cm] (retorno) at (11.15,0) {Retorno\\$6.0$};
+\verificarsetadireita{largura}{funcao}
+\verificarsetadireita{altura}{funcao}
+\verificarsetadireita{funcao}{retorno}
+\draw[seta] (largura.east) -- (funcao.west |- largura.east);
+\draw[seta] (altura.east) -- (funcao.west |- altura.east);
+\draw[seta,draw=teal] (funcao.east) -- (retorno.west);
+\end{tikzpicture}
+\end{document}

@@ -1,5 +1,5 @@
 ---
-title: "02 -- Controle de fluxo"
+title: "02 - Controle de fluxo"
 subtitle: "Decidir, repetir e construir resultados"
 format:
   live-revealjs:
@@ -43,6 +43,12 @@ print("A verificação terminou.")
 ```
 
 **Experimente:** use `80.0`. Qual mensagem permanece?
+
+## Os caminhos de uma condicional {.diagram-slide}
+
+Para a temperatura $T$, o ramo verdadeiro exibe um aviso. Os dois caminhos se unem e continuam após o `if`.
+
+![](figuras/geradas/02-caminhos-condicional.svg){.diagrama fig-alt="A condição T maior que 100 dirige o fluxo ao aviso quando verdadeira; quando falsa, o fluxo ignora o aviso. Os dois ramos chegam à continuação após o if."}
 
 ## Indentação define o bloco
 
@@ -129,6 +135,16 @@ print("Todos os itens foram percorridos.")
 ```
 
 **Experimente:** acrescente uma medição e observe o número de passagens.
+
+## O retorno do laço para o próximo item {.diagram-slide}
+
+O laço percorre um item por vez. Quando não há mais itens, a execução continua após o bloco.
+
+![](figuras/geradas/02-percurso-for.svg){.diagrama fig-alt="O for percorre a lista de medições 20, 21 e 22. Enquanto há outro item, recebe o valor e executa o bloco; a seta retorna à busca pelo próximo item. Ao terminar a lista, continua após o laço."}
+
+::: {.notes}
+A pergunta "Mais?" representa a disponibilidade do próximo item. O for realiza esse controle automaticamente; o aluno não precisa escrever uma condição booleana para percorrer a lista.
+:::
 
 ## Acumular resultados {.output-columns}
 

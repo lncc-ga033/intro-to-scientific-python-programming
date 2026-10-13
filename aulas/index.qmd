@@ -1,29 +1,33 @@
 ---
-title: "GA033 -- Introdução à programação científica com Python"
+title: "GA033 - Introdução à programação científica com Python"
 format:
   html:
     theme: cosmo
     toc: false
-    css: assets/indice.css
+    css:
+      - assets/indice.css
+      - templates/lncc/cabecalho.css
+    template-partials:
+      - templates/lncc/title-block.html
+lncc-logo: assets/lncc.png
+lncc-logo-alt: Laboratório Nacional de Computação Científica
 ---
 
-![Laboratório Nacional de Computação Científica](assets/lncc.png){width=260}
-
-Este módulo da **GA033 -- Método de Elementos Finitos: Implementação Computacional** reúne aulas para quem está começando a usar Python. As apresentações introduzem cada conceito e permitem editar e executar os exemplos. Os notebooks oferecem explicações adicionais e exercícios de estudo.
+Este módulo da **GA033 - Método de Elementos Finitos: Implementação Computacional** reúne aulas para quem está começando a usar Python. As apresentações introduzem cada conceito e permitem editar e executar os exemplos. Os notebooks oferecem explicações adicionais e exercícios de estudo.
 
 ## Aulas
 
 | Aula | Conteúdo |
 | --- | --- |
-| [00 -- Ambiente e primeiro notebook](00-ambiente-e-primeiro-notebook.html) | Pixi, Jupyter e execução |
-| [01 -- Primeiros passos](01-primeiros-passos.html) | Valores, operações e estruturas de dados |
-| [02 -- Controle de fluxo](02-controle-de-fluxo.html) | Condicionais, laços e comprehensions |
-| [03 -- Funções](03-funcoes.html) | Entradas, retorno e responsabilidades |
-| [04 -- Arrays com NumPy](04-arrays-com-numpy.html) | Arrays, operações e sistemas lineares |
-| [05 -- Gráficos e resultados](05-graficos-e-resultados.html) | Figuras, interpolação e erro |
-| [06 -- Cálculo científico com SciPy](06-calculo-cientifico-com-scipy.html) | Sistemas esparsos e quadratura |
-| [07 -- Organização e dataclasses](07-organizacao-e-dataclasses.html) | Módulos, classes e malhalib |
-| [08 -- Tópicos complementares](08-topicos-complementares.html) | Raízes, ajuste, interpolação e EDOs |
+| [00 - Ambiente e primeiro notebook](00-ambiente-e-primeiro-notebook.html) | Pixi, Jupyter e execução |
+| [01 - Primeiros passos](01-primeiros-passos.html) | Valores, operações e estruturas de dados |
+| [02 - Controle de fluxo](02-controle-de-fluxo.html) | Condicionais, laços e comprehensions |
+| [03 - Funções](03-funcoes.html) | Entradas, retorno e responsabilidades |
+| [04 - Arrays com NumPy](04-arrays-com-numpy.html) | Arrays, operações e sistemas lineares |
+| [05 - Gráficos e resultados](05-graficos-e-resultados.html) | Figuras, interpolação e erro |
+| [06 - Cálculo científico com SciPy](06-calculo-cientifico-com-scipy.html) | Sistemas esparsos e quadratura |
+| [07 - Organização e dataclasses](07-organizacao-e-dataclasses.html) | Módulos, classes e malhalib |
+| [08 - Tópicos complementares](08-topicos-complementares.html) | Raízes, ajuste, interpolação e EDOs |
 
 ## Como usar
 

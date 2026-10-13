@@ -1,5 +1,5 @@
 ---
-title: "01 -- Primeiros passos"
+title: "01 - Primeiros passos"
 subtitle: "Valores, nomes e coleções em Python"
 format:
   live-revealjs:
@@ -158,6 +158,12 @@ print(f"Intervalos consecutivos: {len(posicoes) - 1}")
 
 **Experimente:** acrescente uma posição. Quantos intervalos existem agora?
 
+## Índices e valores têm papéis diferentes {.diagram-slide}
+
+O índice identifica a posição do item na lista. O valor guardado nessa posição pode representar uma coordenada, uma temperatura ou outra grandeza.
+
+![](figuras/geradas/01-indices-valores.svg){.diagrama fig-alt="A lista posicoes contém os valores 0.0, 0.25, 0.5, 0.75 e 1.0, associados respectivamente aos índices 0, 1, 2, 3 e 4."}
+
 ## Índices: acessar um item
 
 Os índices começam em zero. `lista[0]` acessa o primeiro item; `lista[-1]`, o último. Um índice identifica a posição do item, não o valor guardado nele.
@@ -246,6 +252,12 @@ print("Cópia:", copia)
 ::: {.notes}
 No quadro, dois nomes apontam para a mesma caixa no slide anterior; aqui apontam para duas caixas. A ressalva sobre cópia superficial pode ser aprofundada no notebook.
 :::
+
+## Compartilhamento e cópia de listas {.diagram-slide}
+
+Dois exemplos independentes mostram a alteração do primeiro item para `99.0`. Atribuição compartilha a lista; `copy()` cria outra lista.
+
+![](figuras/geradas/01-atribuicao-copia.svg){.diagrama fig-alt="Na atribuição, valores e outro apontam para uma mesma lista, alterada para começar com 99.0. Na cópia, valores preserva 1.0 e copia começa com 99.0, pois são listas diferentes."}
 
 ## Tuplas: agrupar valores
 

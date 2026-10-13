@@ -1,0 +1,21 @@
+---
+title: "Título do material"
+subtitle: "Subtítulo opcional"
+author:
+  - name: Prof. Diego Volpatto
+    affiliation: Programa de Pós-Graduação em Modelagem Computacional · LNCC
+lang: pt-BR
+lncc-logo: ../../assets/lncc.png
+lncc-logo-alt: Laboratório Nacional de Computação Científica
+format:
+  html:
+    theme: cosmo
+    toc: false
+    css: cabecalho.css
+    template-partials:
+      - title-block.html
+---
+
+## Introdução
+
+Escreva aqui a apresentação do material.

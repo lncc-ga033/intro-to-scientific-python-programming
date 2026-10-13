@@ -1,4 +1,4 @@
-# Guia docente -- fundamentos computacionais da GA033
+# Guia docente - fundamentos computacionais da GA033
 
 Este material é um módulo de apoio à GA033 para estudantes sem experiência ou sem hábito de programar em Python. O objetivo é permitir que leiam, modifiquem, verifiquem e, progressivamente, organizem os códigos usados no curso de elementos finitos.
 
@@ -29,7 +29,7 @@ Essa ordem não exige concluir todo o Python antes de falar de elementos finitos
 
 ## Um início possível em dois encontros de 90 minutos
 
-Três horas permitem começar, não dominar Python, NumPy, SciPy, Pixi e Git. Para iniciantes reais, os cadernos 01–03 demandam tempo adicional de prática e retomada.
+Três horas permitem começar, não dominar Python, NumPy, SciPy, Pixi e Git. Para iniciantes reais, os cadernos 01-03 demandam tempo adicional de prática e retomada.
 
 No primeiro encontro, priorizar execução de células, variáveis, operações, tipos básicos, f-strings, listas e indexação. Usar o caderno 01 de forma seletiva e reservar parte do tempo para os alunos alterarem os dados e resolverem pelo menos um exercício. Se a instalação consumir a aula, reduzir o conteúdo previsto e marcar uma retomada; não compensar acelerando a exposição.
 
@@ -77,7 +77,7 @@ Introduzir o fluxo mínimo de [Git e GitHub](git-e-github.md) depois dos primeir
 
 Mostrar que a execução depende do código e dos dados usados. Para notebooks, reforçar a execução em um núcleo novo. Uma célula pode funcionar por causa de um nome criado anteriormente e já removido do texto; reiniciar e executar tudo ajuda a identificar essa dependência oculta.
 
-## Observações para os cadernos 01–03
+## Observações para os cadernos 01-03
 
 - As células de exercícios têm valores provisórios e executam sem interrupção. Elas não devem ser usadas como respostas corretas. Pedir a comparação com os resultados esperados no enunciado.
 - Nas demonstrações, as entradas numéricas são valores finitos e compatíveis com o cálculo. Isso não significa que todas as funções de exemplo validem qualquer tipo ou valor que um usuário possa fornecer.
@@ -90,7 +90,7 @@ Mostrar que a execução depende do código e dos dados usados. Para notebooks, 
 
 As soluções abaixo são uma possibilidade. Em aula, conferir primeiro a interpretação do enunciado e as escolhas dos alunos. Os blocos são independentes: podem ser executados separadamente. A numeração se refere aos exercícios dos cadernos, não a listas de avaliação da disciplina.
 
-### Caderno 01, exercício 1 -- Variação
+### Caderno 01, exercício 1 - Variação
 
 ```python
 temperatura_inicial = 18.5
@@ -102,7 +102,7 @@ print(mensagem)
 
 O resultado é `5.5` °C. Inverter as duas temperaturas produz `-5.5` °C. A f-string apresenta o resultado; ela não faz parte da definição matemática da variação.
 
-### Caderno 01, exercício 2 -- Consulta e cópia
+### Caderno 01, exercício 2 - Consulta e cópia
 
 ```python
 temperaturas = [20.0, 21.5, 22.0, 23.0, 23.5]
@@ -119,7 +119,7 @@ print(temperaturas_corrigidas)
 
 A medição central é `22.0`, e a fatia contém `[20.0, 21.5, 22.0]`. A última medição da lista original permanece `23.5`. Trocar `copy()` por uma atribuição direta faria os dois nomes acessarem a mesma lista.
 
-### Caderno 01, exercício 3 -- Configuração
+### Caderno 01, exercício 3 - Configuração
 
 ```python
 experimento = {
@@ -140,7 +140,7 @@ print(descricao)
 
 São dois dicionários distintos. Para os valores imutáveis deste exemplo, a cópia superficial é suficiente. Não generalizar essa independência a dicionários que contenham listas ou outros objetos mutáveis.
 
-### Caderno 02, exercício 1 -- Extremos e interior
+### Caderno 02, exercício 1 - Extremos e interior
 
 ```python
 posicoes = [0.0, 0.25, 0.50, 0.75, 1.0]
@@ -156,7 +156,7 @@ for indice, posicao in enumerate(posicoes):
 
 Os nós `0` e `4` são extremos. A condição utiliza a posição na sequência, não uma comparação aproximada das coordenadas. O exemplo pressupõe uma sequência ordenada dos nós ao longo de um intervalo.
 
-### Caderno 02, exercício 2 -- Busca com tolerância
+### Caderno 02, exercício 2 - Busca com tolerância
 
 ```python
 valores = [0.10, 0.30, 0.48, 0.51, 0.80]
@@ -174,7 +174,7 @@ print(valor_encontrado)
 
 O resultado é `0.48`. Sem `break`, uma busca que continua sobrescrevendo o resultado pode terminar com outro valor. Isso mostra por que “primeiro valor admissível” e “valor mais próximo” são problemas diferentes.
 
-### Caderno 02, exercício 3 -- Comprehensions
+### Caderno 02, exercício 3 - Comprehensions
 
 ```python
 temperaturas_celsius = [-5.0, 0.0, 20.0, 35.0]
@@ -196,7 +196,7 @@ print(temperaturas_kelvin == kelvin_com_laco)
 
 As duas construções em kelvin realizam as mesmas operações na mesma ordem. A igualdade entre essas listas não constitui uma regra geral para comparar resultados obtidos por algoritmos numéricos diferentes.
 
-### Caderno 03, exercício 1 -- Retorno
+### Caderno 03, exercício 1 - Retorno
 
 ```python
 import math
@@ -215,7 +215,7 @@ print(atualizar_temperatura(20.0, -2.0))
 
 A função devolve o resultado para que ele possa ser usado em outro cálculo. A impressão continua no código que a chama.
 
-### Caderno 03, exercício 2 -- Fluxo e validação
+### Caderno 03, exercício 2 - Fluxo e validação
 
 ```python
 import math
@@ -240,7 +240,7 @@ except ValueError as erro:
 
 O sinal é parte do modelo: para condutividade positiva, o fluxo tem sentido oposto ao gradiente. A validação implementada verifica positividade; neste exercício, os argumentos são escalares reais finitos. Um tratamento geral de dados externos pode exigir outras verificações.
 
-### Caderno 03, exercício 3 -- Média e entrada vazia
+### Caderno 03, exercício 3 - Média e entrada vazia
 
 ```python
 import math

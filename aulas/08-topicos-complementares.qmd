@@ -1,5 +1,5 @@
 ---
-title: "08 -- Tópicos complementares"
+title: "08 - Tópicos complementares"
 subtitle: "Raízes, ajuste, interpolação e equações diferenciais"
 format:
   live-revealjs:
@@ -121,6 +121,12 @@ ax.set(xlabel="x", ylabel="y")
 ax.legend(["Medições", "Ajuste"])
 plt.show()
 ```
+
+## Interpolação e ajuste {.diagram-slide}
+
+A interpolação reproduz os valores nos nós. O ajuste de mínimos quadrados busca uma reta que aproxime o conjunto; os segmentos laranja representam resíduos.
+
+![](figuras/geradas/08-interpolacao-ajuste.svg){.diagrama fig-alt="Os mesmos quatro pontos, unidos por interpolação linear à esquerda e aproximados por uma reta de mínimos quadrados à direita"}
 
 ## Interpolar: passar pelos valores dados {.output-columns}
 

@@ -1,5 +1,5 @@
 ---
-title: "03 -- Funções"
+title: "03 - Funções"
 subtitle: "Entradas, resultados e verificações"
 format:
   live-revealjs:
@@ -23,6 +23,12 @@ print(f"Área: {area}")
 ```
 
 **Experimente:** calcule outra área sem copiar a multiplicação.
+
+## Entradas, cálculo e retorno {.diagram-slide}
+
+Os argumentos `2.0` e `3.0` fornecem largura e altura. A função calcula a área do retângulo e `return` devolve `6.0`.
+
+![](figuras/geradas/03-entrada-funcao-retorno.svg){.diagrama fig-alt="A função area_retangulo recebe largura 2.0 e altura 3.0. Um retângulo com essas dimensões tem área 6, e a função retorna 6.0."}
 
 ## Definir e chamar são etapas diferentes {.output-columns}
 
@@ -152,6 +158,12 @@ print(fator)
 ::: {.notes}
 Escopo de nomes não implica copiar os objetos recebidos. Uma função pode modificar uma lista que recebeu como argumento; os próximos exemplos preservam a entrada deliberadamente.
 :::
+
+## Mesmo nome, escopos distintos {.diagram-slide}
+
+O `fator` local recebe `2.0`; o externo continua com `10.0`. A função usa seu fator local e retorna `6.0`.
+
+![](figuras/geradas/03-escopo-local.svg){.diagrama fig-alt="Fora da função, fator vale 10.0. Dentro, fator vale 2.0 e valor vale 3.0. O cálculo retorna 6.0 para resultado, preservando o fator externo."}
 
 ## Docstring: explicar o contrato
 

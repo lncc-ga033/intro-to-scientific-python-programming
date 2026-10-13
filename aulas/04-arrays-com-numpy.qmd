@@ -59,6 +59,12 @@ print("Último:", pontos[-1])
 print("Índices 1, 2 e 3:", pontos[1:4])
 ```
 
+## Linhas, colunas e índices {.diagram-slide}
+
+O eixo 0 percorre as linhas; o eixo 1 percorre as colunas. Em `dados[i, j]`, cada índice identifica uma posição, começando em zero.
+
+![](figuras/geradas/04-eixos-indices.svg){.diagrama fig-alt="Matriz 3 por 2, com eixos 0 e 1 e a entrada dados[1, 0] destacada"}
+
 ## Dois eixos: linha e coluna
 
 Em uma tabela, `dados[i, j]` seleciona linha e coluna. Aqui cada linha representa um instante; cada coluna representa um sensor.
@@ -125,6 +131,12 @@ print("Uma média por sensor:", dados.mean(axis=0))
 print("Uma média por instante:", dados.mean(axis=1))
 print("Média de todos os valores:", dados.mean())
 ```
+
+## Como o vetor é combinado {.diagram-slide}
+
+O vetor de médias tem um valor por coluna e é combinado com cada linha. O broadcasting descreve essa operação sem criar cópias repetidas do vetor.
+
+![](figuras/geradas/04-broadcasting.svg){.diagrama fig-alt="Subtração de um vetor de médias de shape (2,) de uma matriz de shape (3, 2), produzindo desvios de shape (3, 2)"}
 
 ## Broadcasting: combinar dimensões {.output-columns}
 

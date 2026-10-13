@@ -1,0 +1,30 @@
+\documentclass[tikz,border=12pt]{standalone}
+\input{estilo.tex}
+\begin{document}
+\begin{tikzpicture}
+  \coordinate (n0) at (0.5,3.4);
+  \coordinate (n1) at (2.9,3.4);
+  \coordinate (n2) at (8.9,3.4);
+  \coordinate (n3) at (12.5,3.4);
+  \draw[lnccblue,line width=1.8pt] (n0) -- (n1);
+  \draw[teal,line width=2.8pt] (n1) -- (n2);
+  \draw[lnccblue,line width=1.8pt] (n2) -- (n3);
+  \foreach \i/\valor in {0/0{,}0,1/0{,}2,2/0{,}7,3/1{,}0} {
+    \node[point] at (n\i) {};
+    \node[above=14pt] at (n\i) {nó \i};
+    \node[below=13pt] at (n\i) {$x_{\i}=\valor$};
+  }
+  \node[text=lnccblue] at (1.7,2.15) {$e_0$};
+  \node[text=teal] at (5.9,2.15) {$e_1$};
+  \node[text=lnccblue] at (10.7,2.15) {$e_2$};
+  \node[heading] at (3.4,1.15) {\texttt{malha.coordenadas}};
+  \node at (3.4,0.32) {$\bigl[0{,}0\quad\color{teal}0{,}2\quad\color{teal}0{,}7\quad\color{ink}1{,}0\bigr]$};
+  \node[label] at (3.4,-0.45) {4 nós; \texttt{shape = (4,)}};
+  \node[heading] at (9.7,1.15) {\texttt{malha.conectividade}};
+  \node at (8.75,-0.05) {$\begin{bmatrix}0 & 1\\\color{teal}1 & \color{teal}2\\2 & 3\end{bmatrix}$};
+  \node[label,anchor=west] at (9.7,0.60) {elemento 0};
+  \node[label,anchor=west,text=teal] at (9.7,-0.05) {elemento 1};
+  \node[label,anchor=west] at (9.7,-0.70) {elemento 2};
+  \node[label] at (9.7,-1.45) {3 elementos; \texttt{shape = (3, 2)}};
+\end{tikzpicture}
+\end{document}

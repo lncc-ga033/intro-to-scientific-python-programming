@@ -1,0 +1,22 @@
+\documentclass[tikz,border=12pt]{standalone}
+\input{estilo.tex}
+\begin{document}
+\begin{tikzpicture}[
+  x=1cm,y=1cm,every node/.append style={font=\sffamily\fontsize{17}{21}\selectfont},
+  valor/.style={draw=lnccblue,fill=lightblue,rounded corners=2mm,line width=1pt,
+    align=center,minimum height=.75cm},
+  seta/.style={-{Latex[length=3mm,width=2mm]},draw=teal,line width=1.2pt}
+]
+\path[use as bounding box] (-.1,-2.1) rectangle (12.4,2.15);
+\draw[draw=muted!45,line width=.8pt,rounded corners=3mm] (0,-1.3) rectangle (4.8,2.05);
+\draw[draw=lnccblue,line width=1pt,fill=lightblue!45,rounded corners=3mm] (5.5,-1.3) rectangle (12.3,2.05);
+\node[text=ink,font=\sffamily\fontsize{18}{22}\selectfont\bfseries] at (2.4,1.5) {Fora da função};
+\node[text=ink,font=\sffamily\fontsize{18}{22}\selectfont\bfseries] at (8.85,1.5) {Dentro da função};
+\node[valor,minimum width=4.0cm] at (2.4,.5) {\texttt{fator = 10.0}};
+\node[valor,draw=teal,fill=teal!6,minimum width=4.0cm] (resultado) at (2.4,-.65) {resultado = $6.0$};
+\node[valor,minimum width=4.0cm] at (8.85,.5) {\texttt{fator = 2.0}};
+\node[text=ink] at (8.85,-.25) {\texttt{valor = 3.0}};
+\node[text=lnccblue,font=\sffamily\fontsize{20}{24}\selectfont] at (8.85,-.85) {$2.0\times3.0=6.0$};
+\draw[seta] (8.85,-1.3) -- (8.85,-1.9) -- (2.4,-1.9) -- (resultado.south);
+\end{tikzpicture}
+\end{document}

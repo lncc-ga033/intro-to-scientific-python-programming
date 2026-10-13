@@ -1,0 +1,41 @@
+\documentclass[tikz,border=12pt]{standalone}
+\input{estilo.tex}
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm,
+  every node/.append style={font=\sffamily\fontsize{16}{19}\selectfont}]
+  \path[use as bounding box] (0,-.85) rectangle (12.8,4.9);
+  \node[heading] at (3.2,4.5) {Interpolação linear};
+  \node[heading] at (9.6,4.5) {Ajuste de uma reta};
+  \begin{scope}[shift={(.85,.95)},x=1.35cm,y=.87cm]
+    \draw[flow] (0,0) -- (3.35,0);
+    \draw[flow] (0,0) -- (0,3.75);
+    \node at (3.4,-.22) {$x$};
+    \node at (-.23,3.55) {$y$};
+    \draw[lnccblue,line width=1.3pt] plot coordinates {(0,.2) (1,1.4) (2,1.5) (3,3.1)};
+    \foreach \xx/\yy in {0/.2,1/1.4,2/1.5,3/3.1} {
+      \node[point,fill=ink,draw=white,minimum size=3.6mm] at (\xx,\yy) {};
+    }
+    \foreach \xx in {0,1,2,3} {
+      \draw[muted] (\xx,0) -- (\xx,-.07);
+      \node[text=muted,font=\sffamily\fontsize{13}{16}\selectfont] at (\xx,-.3) {\xx};
+    }
+  \end{scope}
+  \begin{scope}[shift={(7.25,.95)},x=1.35cm,y=.87cm]
+    \draw[flow] (0,0) -- (3.35,0);
+    \draw[flow] (0,0) -- (0,3.75);
+    \node at (3.4,-.22) {$x$};
+    \node at (-.23,3.55) {$y$};
+    \draw[lnccblue,line width=1.3pt] (0,.23) -- (3,2.87);
+    \foreach \xx/\yy in {0/.2,1/1.4,2/1.5,3/3.1} {
+      \draw[orange,line width=1.1pt] (\xx,\yy) -- (\xx,{.88*\xx+.23});
+      \node[point,fill=ink,draw=white,minimum size=3.6mm] at (\xx,\yy) {};
+    }
+    \foreach \xx in {0,1,2,3} {
+      \draw[muted] (\xx,0) -- (\xx,-.07);
+      \node[text=muted,font=\sffamily\fontsize{13}{16}\selectfont] at (\xx,-.3) {\xx};
+    }
+  \end{scope}
+  \node[text=muted,align=center,text width=5.4cm,font=\sffamily\fontsize{14}{17}\selectfont] at (3.2,-.4) {passa por todos\\os dados};
+  \node[text=muted,align=center,text width=5.4cm,font=\sffamily\fontsize{14}{17}\selectfont] at (9.6,-.4) {mínimos quadrados\\$\min\sum_i r_i^2$};
+\end{tikzpicture}
+\end{document}

@@ -34,7 +34,7 @@ def verificar(gravar=False):
             if gravar:
                 nbformat.write(caderno, arquivo)
             quantidade = sum(c.cell_type == "code" for c in caderno.cells)
-            print(f"OK: {arquivo.name} -- {quantidade} células de código", flush=True)
+            print(f"OK: {arquivo.name} - {quantidade} células de código", flush=True)
     print(f"Verificados {len(arquivos)} notebooks em kernels independentes.")
 
 

@@ -1,6 +1,6 @@
 # Origem e critérios da revisão
 
-Este crash course é um módulo da GA033 -- Método de Elementos Finitos: Implementação Computacional, do LNCC. Autor: Diego Tavares Volpatto. Material autoral sob CC BY 4.0.
+Este crash course é um módulo da GA033 - Método de Elementos Finitos: Implementação Computacional, do LNCC. Autor: Diego Tavares Volpatto. Material autoral sob CC BY 4.0.
 
 ## Material consultado
 

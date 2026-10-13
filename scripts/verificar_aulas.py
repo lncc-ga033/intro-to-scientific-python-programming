@@ -23,7 +23,7 @@ def verificar():
     for arquivo in arquivos:
         texto = arquivo.read_text(encoding="utf-8")
         if chr(0x2014) in texto:
-            raise ValueError(f"Use -- no lugar do travessão em {arquivo.name}.")
+            raise ValueError(f"Use - no lugar do travessão em {arquivo.name}.")
         blocos = BLOCO_PYTHON.findall(texto)
         for indice, bloco in enumerate(blocos, start=1):
             codigo = "\n".join(linha for linha in bloco.splitlines() if not linha.startswith("#|"))
@@ -36,7 +36,7 @@ def verificar():
             finally:
                 plt.close("all")
         total += len(blocos)
-        print(f"OK: {arquivo.name} -- {len(blocos)} blocos independentes", flush=True)
+        print(f"OK: {arquivo.name} - {len(blocos)} blocos independentes", flush=True)
     print(f"Verificadas {len(arquivos)} aulas e {total} blocos no Python local.")
     print("Confira também a execução Pyodide e o layout no navegador.")
 

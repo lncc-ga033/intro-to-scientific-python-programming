@@ -1,0 +1,45 @@
+/* Cabeçalho reutilizável para documentos HTML do LNCC. */
+#title-block-header.lncc-title-block {
+  --lncc-logo-width: 180px;
+  --lncc-header-gap: 1.75rem;
+  --lncc-header-color: #075ac0;
+}
+
+#title-block-header.lncc-title-block .lncc-title-with-logo {
+  display: grid;
+  grid-template-columns: minmax(0, var(--lncc-logo-width)) minmax(0, 1fr);
+  align-items: center;
+  gap: var(--lncc-header-gap);
+}
+
+#title-block-header.lncc-title-block .lncc-title-logo {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0;
+}
+
+#title-block-header.lncc-title-block .lncc-title-text {
+  min-width: 0;
+}
+
+#title-block-header.lncc-title-block h1.title {
+  margin: 0;
+  color: var(--lncc-header-color);
+  overflow-wrap: break-word;
+}
+
+#title-block-header.lncc-title-block .subtitle {
+  margin: 0.5rem 0 0;
+}
+
+@media (max-width: 767px) {
+  #title-block-header.lncc-title-block {
+    --lncc-logo-width: clamp(96px, 22vw, 150px);
+    --lncc-header-gap: 1rem;
+  }
+
+  #title-block-header.lncc-title-block h1.title {
+    font-size: clamp(1.3rem, 4vw, 1.8rem);
+  }
+}

@@ -60,6 +60,12 @@ $code-block-font-size: 0.76em;
 .reveal section:is(.plot-slide, .output-columns) .cm-content { flex: 1 1 auto !important; min-width: 0; white-space: pre-wrap; overflow-wrap: anywhere; }
 .reveal section:is(.plot-slide, .output-columns) .cm-line { white-space: pre-wrap; overflow-wrap: anywhere; }
 .reveal section.output-columns .cell-output pre { white-space: pre-wrap; overflow-wrap: anywhere; }
+.reveal .diagrama { display: block; width: 100%; max-width: 1020px; max-height: 410px; height: auto; margin: 0 auto; object-fit: contain; }
+.reveal section.diagram-slide .slide-body > p:has(.diagrama) { margin: 12px 0; }
+.reveal section.diagram-slide .slide-body > p:last-child:not(:has(.diagrama)) { margin-bottom: 0; }
+.reveal section.diagram-columns .columns { gap: 28px; align-items: center; }
+.reveal section.diagram-columns .column { min-width: 0; }
+.reveal section.diagram-columns .diagrama { max-height: 370px; }
 .reveal section .notes { display: none; }
 .reveal .experimentar { color: #465462; font-size: 0.9em; }
 .reveal #exercise-loading-indicator { font-size: 17px; bottom: 54px; right: 22px; }
