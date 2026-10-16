@@ -161,6 +161,10 @@ Uma forma de citar:
 
 Os dados de citação também estão em [CITATION.cff](CITATION.cff). Materiais de terceiros eventualmente referenciados ou presentes nas ilustrações conservam suas próprias atribuições e condições de uso.
 
+## Declaração sobre o uso de Inteligência Artificial
+
+Em conformidade com as diretrizes de integridade científica do CNPq (Portaria CNPq nº 2.664/2026), declara-se que ferramentas de Inteligência Artificial Generativa - especificamente Codex (modelos GPT Astra 6 e 6.1 Sol) e Gemini 3.8 Flash - foram utilizadas como suporte técnico na elaboração deste material, auxiliando na revisão textual e no refatoramento de código. A concepção didática, a validação técnica e científica dos exemplos e a responsabilidade integral pelo conteúdo final cabem exclusivamente ao autor.
+
 ## Referências
 
 - [Curso de NumPy e SciPy de Diego Volpatto (2019)](https://github.com/volpatto/numpy_scipy_course)
